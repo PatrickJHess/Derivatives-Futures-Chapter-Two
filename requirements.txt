@@ -1,0 +1,24 @@
+numpy
+pandas
+openpyxl
+pathvalidate
+matplotlib
+python-dateutil
+holidays
+ipynbname
+bs4
+pandas_market_calendars
+scipy
+pandas-datareader
+pandas<3.0
+scipy
+lxml
+html5lib
+# Ensure JupyterLab is installed
+jupyterlab
+pyarrow>=12.0.0
+# Extension to render MyST Markdown in JupyterLab
+jupyterlab-myst
+
+# (Optional but recommended) Allows you to open and run .md files as notebooks
+jupytext

@@ -1,0 +1,19 @@
+# Ignore MyST build outputs
+_build/
+.myst/
+
+# Ignore Python/Jupyter junk
+.ipynb_checkpoints/
+__pycache__/
+.*
+*.env
+credentials.json
+client_secrets.json
+deploy.sh
+!.gitignore
+fred/
+jupyter_one/
+Chapters_Seven_Eight/
+notebooks/*.json
+
+
