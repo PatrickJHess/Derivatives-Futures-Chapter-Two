@@ -1,0 +1,858 @@
+<!DOCTYPE html><html lang="en" class="" style="scroll-padding:60px"><head><script>(function(){var p=window.location.pathname;if(p.endsWith('/index.html'))window.location.replace((p.slice(0,-10)||'/')+window.location.search+window.location.hash);})();</script><meta charSet="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Imported Functions - &quot;📈 Visualizing the Concepts and Applying the Model: Arbitrage and the Cost of Carry ⚙️&quot;</title><meta property="og:title" content="Imported Functions - &quot;📈 Visualizing the Concepts and Applying the Model: Arbitrage and the Cost of Carry ⚙️&quot;"/><meta name="generator" content="mystmd"/><meta name="keywords" content=""/><link rel="stylesheet" href="/Derivatives-Futures-Chapter-Two//build/_assets/app-TIOB6ZNY.css"/><link rel="stylesheet" href="/Derivatives-Futures-Chapter-Two//build/_assets/thebe-core-VKVHG5VY.css"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jupyter-matplotlib@0.11.3/css/mpl_widget.css"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ" crossorigin="anonymous"/><link rel="icon" href="/Derivatives-Futures-Chapter-Two//favicon.ico"/><link rel="stylesheet" href="/Derivatives-Futures-Chapter-Two//myst-theme.css"/><script>
+  const savedTheme = localStorage.getItem("myst:theme");
+  const theme = window.matchMedia("(prefers-color-scheme: light)").matches ? 'light' : 'dark';
+  const classes = document.documentElement.classList;
+  const hasAnyTheme = classes.contains('light') || classes.contains('dark');
+  if (!hasAnyTheme) classes.add(savedTheme ?? theme);
+</script></head><body class="m-0 bg-white dark:bg-stone-900"><div class="myst-skip-to-article fixed top-1 left-1 h-[0px] w-[0px] focus-within:z-40 focus-within:h-auto focus-within:w-auto bg-white overflow-hidden focus-within:p-2 focus-within:ring-1" aria-label="skip to content options"><a href="#skip-to-frontmatter" class="myst-skip-to-link block px-2 py-1 text-black underline">Skip to article frontmatter</a><a href="#skip-to-article" class="myst-skip-to-link block px-2 py-1 text-black underline">Skip to article content</a></div><dialog id="myst-no-css" style="position:fixed;left:0px;top:0px;width:100%;height:100vh;font-size:4rem;padding:1rem;color:black;background:white"><strong>Site not loading correctly?</strong><p>This may be due to an incorrect <code>BASE_URL</code> configuration. See<!-- --> <a href="https://mystmd.org/guide/deployment#deploy-base-url">the MyST Documentation</a> <!-- -->for reference.</p><script>
+    (() => {
+            // Test for has-styling variable set by the MyST stylesheet
+            const node = document.currentScript.parentNode;
+            const hasCSS = window.getComputedStyle(node).getPropertyValue("--has-styling");
+            if (hasCSS === ""){
+                    node.showModal();
+            }
+
+    })()
+</script></dialog><div class="myst-top-nav bg-white/80 backdrop-blur dark:bg-stone-900/80 shadow dark:shadow-stone-700 p-3 md:px-8 sticky w-full top-0 z-30 min-h-[60px]"><nav class="myst-top-nav-bar flex items-center justify-between flex-nowrap max-w-[1440px] mx-auto"><div class="flex flex-row xl:min-w-[19.5rem] mr-2 sm:mr-7 justify-start items-center shrink-0"><div class="block xl:hidden"><button class="myst-top-nav-menu-button flex items-center justify-center border-stone-400 text-stone-800 hover:text-stone-900 dark:text-stone-200 hover:dark:text-stone-100 w-10 h-10"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" width="1.5rem" height="1.5rem"><path fill-rule="evenodd" d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd"></path></svg><span class="sr-only">Open Menu</span></button></div><a class="myst-home-link flex items-center ml-3 dark:text-white w-fit md:ml-5 xl:ml-7" href="/Derivatives-Futures-Chapter-Two//"><span class="text-md sm:text-xl tracking-tight sm:mr-5">Made with MyST</span></a></div><div class="flex items-center flex-grow w-auto"><div class="flex-grow hidden text-md lg:block"></div><div class="flex-grow block"></div><button type="button" aria-haspopup="dialog" aria-expanded="false" data-state="closed" class="myst-search-bar flex items-center h-10 aspect-square sm:w-64 text-left text-gray-600 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 myst-search-bar-disabled hover:ring-blue-500 dark:hover:ring-blue-500 hover:border-blue-500 dark:hover:border-blue-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" class="p-2.5 h-10 w-10 aspect-square"><path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd"></path></svg><span class="myst-search-text-placeholder hidden sm:block grow">Search</span><div aria-hidden="true" class="myst-search-shortcut items-center hidden mx-1 font-mono text-sm text-gray-600 dark:text-gray-300 sm:flex gap-x-1"><kbd class="px-2 py-1 border border-gray-300 dark:border-gray-600 rounded-md shadow-[0px_2px_0px_0px_rgba(0,0,0,0.08)] dark:shadow-none hide-mac">CTRL</kbd><kbd class="px-2 py-1 border border-gray-300 dark:border-gray-600 rounded-md shadow-[0px_2px_0px_0px_rgba(0,0,0,0.08)] dark:shadow-none show-mac">⌘</kbd><kbd class="px-2 py-1 border border-gray-300 dark:border-gray-600 rounded-md shadow-[0px_2px_0px_0px_rgba(0,0,0,0.08)] dark:shadow-none ">K</kbd><script>
+;(() => {
+const script = document.currentScript;
+const root = script.parentElement;
+
+const isMac = /mac/i.test(
+      window.navigator.userAgentData?.platform ?? window.navigator.userAgent,
+    );
+root.querySelectorAll(".hide-mac").forEach(node => {node.classList.add(isMac ? "hidden" : "block")});
+root.querySelectorAll(".show-mac").forEach(node => {node.classList.add(!isMac ? "hidden" : "block")});
+})()</script></div></button><button class="myst-theme-button theme shrink-0 rounded-full border border-stone-700 dark:border-white hover:bg-neutral-100 border-solid overflow-hidden text-stone-700 dark:text-white hover:text-stone-500 dark:hover:text-neutral-800 w-8 h-8 ml-3" title="Toggle theme between light and dark mode" aria-label="Toggle theme between light and dark mode"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" class="myst-theme-moon-icon h-full w-full p-[18%] hidden dark:block"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 0 1 .162.819A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.463-.69.75.75 0 0 1 .981.98 10.503 10.503 0 0 1-9.694 6.46c-5.799 0-10.5-4.7-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 0 1 .818.162Z" clip-rule="evenodd"></path></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" class="myst-theme-sun-icon h-full w-full p-[18%] dark:hidden"><path d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.894 6.166a.75.75 0 0 0-1.06-1.06l-1.591 1.59a.75.75 0 1 0 1.06 1.061l1.591-1.59ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5H21a.75.75 0 0 1 .75.75ZM17.834 18.894a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 1 0-1.061 1.06l1.59 1.591ZM12 18a.75.75 0 0 1 .75.75V21a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM7.758 17.303a.75.75 0 0 0-1.061-1.06l-1.591 1.59a.75.75 0 0 0 1.06 1.061l1.591-1.59ZM6 12a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h2.25A.75.75 0 0 1 6 12ZM6.697 7.757a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 0 0-1.061 1.06l1.59 1.591Z"></path></svg></button><div class="block sm:hidden"></div><div class="hidden sm:block"></div></div></nav></div><div class="myst-primary-sidebar fixed xl:article-grid grid-gap xl:w-full xl:pointer-events-none overflow-auto max-xl:w-[75vw] max-xl:max-w-[350px] max-xl:!top-0 max-xl:h-screen hidden z-10" style="top:60px"><div class="myst-primary-sidebar-pointer pointer-events-auto xl:col-margin-left flex-col overflow-hidden max-xl:h-full hidden xl:flex"><div class="myst-primary-sidebar-nav flex-grow py-6 overflow-y-auto primary-scrollbar"><nav aria-label="Navigation" class="myst-primary-sidebar-topnav overflow-y-hidden transition-opacity lg:hidden ml-3 xl:ml-0 mr-3 max-w-[350px]"><div class="w-full px-1 dark:text-white font-medium"></div></nav><div class="my-3 border-b-2 lg:hidden"></div><nav aria-label="Table of Contents" class="myst-primary-sidebar-toc flex-grow overflow-y-hidden transition-opacity ml-3 xl:ml-0 mr-3 max-w-[350px]"><div class="myst-toc w-full px-1 dark:text-white"><a title="&quot;📈 Visualizing the Concepts and Applying the Model: Arbitrage and the Cost of Carry ⚙️&quot;" class="block break-words focus:outline outline-blue-200 outline-2 rounded myst-toc-item p-2 my-1 rounded-lg hover:bg-slate-300/30 font-bold" href="/Derivatives-Futures-Chapter-Two//">&quot;📈 Visualizing the Concepts and Applying the Model: Arbitrage and the Cost of Carry ⚙️&quot;</a><div title="Getting Started" class="block break-words rounded myst-toc-item p-2 my-1 rounded-lg hover:bg-slate-300/30">Getting Started</div><div data-state="open" class="w-full"><div class="myst-toc-item flex flex-row w-full gap-2 pl-2 my-1 text-left rounded-lg outline-none hover:bg-slate-300/30"><div title="Chapter Two: 📈 Visualizing the Concepts and Applying the Model: Arbitrage and the Cost of Carry ⚙️" class="block break-words rounded py-2 grow font-semibold text-blue-800 dark:text-blue-200 cursor-pointer">Chapter Two: 📈 Visualizing the Concepts and Applying the Model: Arbitrage and the Cost of Carry ⚙️</div><button class="self-stretch flex items-center flex-none px-1 rounded-l-md group hover:bg-slate-300/30 focus-visible:outline outline-blue-200 outline-2" aria-label="Open Folder" type="button" aria-controls="radix-:R1opsp:" aria-expanded="true" data-state="open"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" class="transition-transform duration-300 group-data-[state=open]:rotate-90 text-text-slate-700 dark:text-slate-100" height="1.5rem" width="1.5rem"><path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd"></path></svg></button></div><div data-state="open" id="radix-:R1opsp:" class="pl-3 pr-[2px] collapsible-content"><a title="⚖️ Conceptualizing Pricing: The Transmission of Uncertainty and the Power of Arbitrage" class="block break-words focus:outline outline-blue-200 outline-2 rounded myst-toc-item p-2 my-1 rounded-lg hover:bg-slate-300/30" href="/Derivatives-Futures-Chapter-Two//uncertainty-arbitrage">🔐⚖️ Conceptualizing Pricing: The Transmission of Uncertainty and the Power of Arbitrage</a><a title="👁️‍🗨️ From Visualization to Calculation: Applying the Cost of Carry Model ⚖️" class="block break-words focus:outline outline-blue-200 outline-2 rounded myst-toc-item p-2 my-1 rounded-lg hover:bg-slate-300/30" href="/Derivatives-Futures-Chapter-Two//pricing">👁️‍🗨️ From Visualization to Calculation: Applying the Cost of Carry Model ⚖️</a><a title="📝 Chapter Summary" class="block break-words focus:outline outline-blue-200 outline-2 rounded myst-toc-item p-2 my-1 rounded-lg hover:bg-slate-300/30" href="/Derivatives-Futures-Chapter-Two//chapter-summary">📝 Chapter Summary</a><a title="Imported Functions" class="block break-words focus:outline outline-blue-200 outline-2 rounded myst-toc-item p-2 my-1 rounded-lg myst-toc-item-exact bg-blue-300/30" href="/Derivatives-Futures-Chapter-Two//imported-functions">Imported Functions</a></div></div><div data-state="closed" class="w-full"><div class="myst-toc-item flex flex-row w-full gap-2 pl-2 my-1 text-left rounded-lg outline-none hover:bg-slate-300/30"><div title="Other Chapters Of The Volume" class="block break-words rounded py-2 grow cursor-pointer">Other Chapters Of The Volume</div><button class="self-stretch flex items-center flex-none px-1 rounded-l-md group hover:bg-slate-300/30 focus-visible:outline outline-blue-200 outline-2" aria-label="Open Folder" type="button" aria-controls="radix-:R28psp:" aria-expanded="false" data-state="closed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" class="transition-transform duration-300 group-data-[state=open]:rotate-90 text-text-slate-700 dark:text-slate-100" height="1.5rem" width="1.5rem"><path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd"></path></svg></button></div><div data-state="closed" id="radix-:R28psp:" hidden="" class="pl-3 pr-[2px] collapsible-content"></div></div></div></nav></div><div class="myst-primary-sidebar-footer flex-none py-6 transition-all duration-700 translate-y-6 opacity-0 ml-3 xl:ml-0 mr-3 max-w-[350px]"><a class="myst-made-with-myst flex mx-auto text-gray-700 w-fit hover:text-blue-700 dark:text-gray-200 dark:hover:text-blue-400" href="https://mystmd.org/made-with-myst" target="_blank" rel="noreferrer"><svg style="width:24px;height:24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" stroke="none"><g id="icon"><path fill="currentColor" d="M23.8,54.8v-3.6l4.7-0.8V17.5l-4.7-0.8V13H36l13.4,31.7h0.2l13-31.7h12.6v3.6l-4.7,0.8v32.9l4.7,0.8v3.6h-15
+          v-3.6l4.9-0.8V20.8H65L51.4,53.3h-3.8l-14-32.5h-0.1l0.2,17.4v12.1l5,0.8v3.6H23.8z"></path><path fill="#F37726" d="M47,86.9c0-5.9-3.4-8.8-10.1-8.8h-8.4c-5.2,0-9.4-1.3-12.5-3.8c-3.1-2.5-5.4-6.2-6.8-11l4.8-1.6
+          c1.8,5.6,6.4,8.6,13.8,8.8h9.2c6.4,0,10.8,2.5,13.1,7.5c2.3-5,6.7-7.5,13.1-7.5h8.4c7.8,0,12.7-2.9,14.6-8.7l4.8,1.6
+          c-1.4,4.9-3.6,8.6-6.8,11.1c-3.1,2.5-7.3,3.7-12.4,3.8H63c-6.7,0-10,2.9-10,8.8"></path></g></svg><span class="self-center ml-2 text-sm">Made with MyST</span></a></div></div></div><main class="article-grid grid-gap"><article class="article-grid subgrid-gap col-screen article content"><div class="hidden"></div><div id="skip-to-frontmatter" aria-label="article frontmatter" class="myst-fm-block mb-8 pt-9"><div class="myst-fm-block-header flex items-center mb-5 h-6 text-sm font-light"><div class="flex-grow"></div><div class="myst-fm-block-badges"><a href="https://github.com/PatrickJHess/Derivatives-Futures-Chapter-Two" title="GitHub Repository: PatrickJHess/Derivatives-Futures-Chapter-Two" target="_blank" rel="noopener noreferrer" class="myst-fm-github-link text-inherit hover:text-inherit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="1.25rem" height="1.25rem" class="myst-fm-github-icon inline-block mr-1 opacity-60 hover:opacity-100"><path d="M12 2.5c-5.4 0-9.8 4.4-9.8 9.7 0 4.3 2.8 8 6.7 9.2.5.1.7-.2.7-.5v-1.8c-2.4.5-3.1-.6-3.3-1.1-.1-.3-.6-1.1-1-1.4-.3-.2-.8-.6 0-.6s1.3.7 1.5 1c.9 1.5 2.3 1.1 2.8.8.1-.6.3-1.1.6-1.3-2.2-.2-4.4-1.1-4.4-4.8 0-1.1.4-1.9 1-2.6-.1-.2-.4-1.2.1-2.6 0 0 .8-.3 2.7 1 .8-.2 1.6-.3 2.4-.3.8 0 1.7.1 2.4.3 1.9-1.3 2.7-1 2.7-1 .5 1.3.2 2.3.1 2.6.6.7 1 1.5 1 2.6 0 3.7-2.3 4.6-4.4 4.8.4.3.7.9.7 1.8V21c0 .3.2.6.7.5 3.9-1.3 6.6-4.9 6.6-9.2 0-5.4-4.4-9.8-9.8-9.8z"></path></svg></a></div><a href="https://github.com/PatrickJHess/Derivatives-Futures-Chapter-Two/edit/main/imported_functions.md" title="Edit This Page" target="_blank" rel="noopener noreferrer" class="myst-fm-edit-link text-inherit hover:text-inherit"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" width="1.25rem" height="1.25rem" class="myst-fm-edit-icon inline-block mr-1 opacity-60 hover:opacity-100"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"></path></svg></a><div class="myst-fm-downloads-dropdown relative flex inline-block mx-1 grow-0" data-headlessui-state=""><button class="myst-fm-downloads-button relative ml-2 -mr-1" id="headlessui-menu-button-:Rs8ucp:" type="button" aria-haspopup="menu" aria-expanded="false" data-headlessui-state=""><span class="sr-only">Downloads</span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" width="1.25rem" height="1.25rem" class="myst-fm-downloads-icon"><title>Download</title><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"></path></svg></button></div><button class="myst-fm-launch-button inline-flex size-[24px] hover:text-[#E18435] items-center justify-center" aria-label="Launch in external computing interface" title="Launch in external computing interface" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:Re8ucp:" data-state="closed"><svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="myst-fm-launch-icon"><path d="M6.85357 3.85355L7.65355 3.05353C8.2981 2.40901 9.42858 1.96172 10.552 1.80125C11.1056 1.72217 11.6291 1.71725 12.0564 1.78124C12.4987 1.84748 12.7698 1.97696 12.8965 2.10357C13.0231 2.23018 13.1526 2.50125 13.2188 2.94357C13.2828 3.37086 13.2779 3.89439 13.1988 4.44801C13.0383 5.57139 12.591 6.70188 11.9464 7.34645L7.49999 11.7929L6.35354 10.6465C6.15827 10.4512 5.84169 10.4512 5.64643 10.6465C5.45117 10.8417 5.45117 11.1583 5.64643 11.3536L7.14644 12.8536C7.34171 13.0488 7.65829 13.0488 7.85355 12.8536L8.40073 12.3064L9.57124 14.2572C9.65046 14.3893 9.78608 14.4774 9.9389 14.4963C10.0917 14.5151 10.2447 14.4624 10.3535 14.3536L12.3535 12.3536C12.4648 12.2423 12.5172 12.0851 12.495 11.9293L12.0303 8.67679L12.6536 8.05355C13.509 7.19808 14.0117 5.82855 14.1887 4.58943C14.2784 3.9618 14.2891 3.33847 14.2078 2.79546C14.1287 2.26748 13.9519 1.74482 13.6035 1.39645C13.2552 1.04809 12.7325 0.871332 12.2045 0.792264C11.6615 0.710945 11.0382 0.721644 10.4105 0.8113C9.17143 0.988306 7.80189 1.491 6.94644 2.34642L6.32322 2.96968L3.07071 2.50504C2.91492 2.48278 2.75773 2.53517 2.64645 2.64646L0.646451 4.64645C0.537579 4.75533 0.484938 4.90829 0.50375 5.0611C0.522563 5.21391 0.61073 5.34954 0.742757 5.42876L2.69364 6.59928L2.14646 7.14645C2.0527 7.24022 2.00002 7.3674 2.00002 7.50001C2.00002 7.63261 2.0527 7.75979 2.14646 7.85356L3.64647 9.35356C3.84173 9.54883 4.15831 9.54883 4.35357 9.35356C4.54884 9.1583 4.54884 8.84172 4.35357 8.64646L3.20712 7.50001L3.85357 6.85356L6.85357 3.85355ZM10.0993 13.1936L9.12959 11.5775L11.1464 9.56067L11.4697 11.8232L10.0993 13.1936ZM3.42251 5.87041L5.43935 3.85356L3.17678 3.53034L1.80638 4.90074L3.42251 5.87041ZM2.35356 10.3535C2.54882 10.1583 2.54882 9.8417 2.35356 9.64644C2.1583 9.45118 1.84171 9.45118 1.64645 9.64644L0.646451 10.6464C0.451188 10.8417 0.451188 11.1583 0.646451 11.3535C0.841713 11.5488 1.1583 11.5488 1.35356 11.3535L2.35356 10.3535ZM3.85358 11.8536C4.04884 11.6583 4.04885 11.3417 3.85359 11.1465C3.65833 10.9512 3.34175 10.9512 3.14648 11.1465L1.14645 13.1464C0.95119 13.3417 0.951187 13.6583 1.14645 13.8535C1.34171 14.0488 1.65829 14.0488 1.85355 13.8536L3.85358 11.8536ZM5.35356 13.3535C5.54882 13.1583 5.54882 12.8417 5.35356 12.6464C5.1583 12.4512 4.84171 12.4512 4.64645 12.6464L3.64645 13.6464C3.45119 13.8417 3.45119 14.1583 3.64645 14.3535C3.84171 14.5488 4.1583 14.5488 4.35356 14.3535L5.35356 13.3535ZM9.49997 6.74881C10.1897 6.74881 10.7488 6.1897 10.7488 5.5C10.7488 4.8103 10.1897 4.25118 9.49997 4.25118C8.81026 4.25118 8.25115 4.8103 8.25115 5.5C8.25115 6.1897 8.81026 6.74881 9.49997 6.74881Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg></button></div><h1 class="myst-fm-block-title mb-0">Imported Functions</h1><header class="myst-fm-authors-affiliations mt-4 not-prose"><div class="myst-fm-authors-list"><span class="myst-fm-author font-semibold text-sm myst-fm-author-item inline-block"><button class="myst-fm-author-popover focus:shadow-[0_0_0_2px] focus:shadow-black outline-none hover:underline" aria-label="Author Details" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:R78ucp:" data-state="closed"><span class="myst-fm-author-name">Financial Python</span></button></span></div></header></div><div class="block my-10 lg:sticky lg:z-10 lg:h-0 lg:pt-0 lg:my-0 lg:ml-10 lg:col-margin-right" style="top:60px"><nav></nav></div><div id="skip-to-article"></div><details class="myst-dropdown rounded-md my-5 shadow dark:shadow-2xl dark:shadow-neutral-900 overflow-hidden bg-gray-50 dark:bg-stone-800"><summary class="myst-dropdown-header m-0 text-lg font-medium py-1 min-h-[2em] pl-3 cursor-pointer hover:shadow-[inset_0_0_0px_30px_#00000003] dark:hover:shadow-[inset_0_0_0px_30px_#FFFFFF03] bg-gray-100 dark:bg-slate-900"><span class="myst-dropdown-header-title text-neutral-900 dark:text-white"><span class="block float-right text-sm font-thin text-neutral-700 dark:text-neutral-200"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" width="1.5rem" height="1.5rem" class="myst-dropdown-header-icon inline-block pl-2 mr-2 -translate-y-[1px] details-toggle transition-transform"><path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd"></path></svg></span>Click to see <code>MASSIVEReader</code></span></summary><div class="myst-dropdown-body px-4 py-1 details-body"><div class="relative myst-code group not-prose my-5 text-sm shadow hover:shadow-md dark:shadow-2xl dark:shadow-neutral-900 bg-stone-200/10"><div aria-label="code block content" class="block overflow-auto p-3 myst-code-body hljs"><pre style="background-color:#fff;padding:0;margin:0;background:transparent"><code class="language-text" style="white-space:pre">import os
+import time
+import json
+import requests
+import pandas as pd
+import pandas_market_calendars as mcal
+from .massive_base import MassiveBase
+
+
+class MASSIVEReader(MassiveBase):
+    def __init__(self, api_key: str = None, key_name: str = &quot;&quot;, calls_per_minute: int = 4):
+        super().__init__(api_key=api_key, key_name=key_name, calls_per_minute=calls_per_minute)
+        
+        # 📅 Initialize market calendars once for the whole class
+        self.cme_cal = mcal.get_calendar(&#x27;CME_TradeDate&#x27;)   # For Futures
+        self.nyse_cal = mcal.get_calendar(&#x27;NYSE&#x27;) # For Stocks
+
+    def _align_trade_dates(self, start_date: str, end_date: str, market: str = &quot;CME&quot;) -&gt; tuple:
+        &quot;&quot;&quot;
+        Universal calendar logic to snap weekends and holidays to valid trade dates.
+        Prevents phantom cache misses and needless API calls.
+        &quot;&quot;&quot;
+        cal = self.cme_cal if market == &quot;CME&quot; else self.nyse_cal
+        
+        # Snap start date FORWARD to the next valid trading day
+        valid_starts = cal.valid_days(start_date, pd.to_datetime(start_date) + pd.Timedelta(days=15))
+        aligned_start = valid_starts[0].strftime(&#x27;%Y-%m-%d&#x27;)
+        
+        # Snap end date BACKWARD to the most recent valid trading day
+        # 1. Convert input to pandas Timestamp and drop time component
+        end_dt = pd.to_datetime(end_date).normalize()
+        today = pd.Timestamp.today().normalize()
+    
+        # 2. Cap at today first (prevents querying future schedule data)
+        capped_end_dt = min(end_dt, today)
+        
+        # 3. Query calendar using capped_end_dt
+        valid_ends = cal.valid_days(capped_end_dt - pd.Timedelta(days=15), capped_end_dt)
+        aligned_end = valid_ends[-1].strftime(&#x27;%Y-%m-%d&#x27;)
+        
+        return aligned_start, aligned_end
+
+    def _execute_with_cache(self, fetch_callback, ticker, start_date, end_date, resolution):
+        &quot;&quot;&quot;
+        Universal caching engine driven directly by the CSV file contents.
+        Loads existing data first, checks the date index, and dynamically fetches
+        only the missing blocks before or after the cached range.
+        &quot;&quot;&quot;
+        safe_ticker = ticker.replace(&quot;:&quot;, &quot;_&quot;)
+        filepath = os.path.join(self.cache_dir, f&quot;{safe_ticker}_{resolution}_data.csv&quot;)
+        
+        # 1. LOAD THE EXISTING CACHE (The Single Source of Truth)
+        if os.path.exists(filepath):
+            try:
+                df = pd.read_csv(filepath, index_col=0)
+                df.index = pd.to_datetime(df.index, errors=&#x27;coerce&#x27;, utc=True)
+                df = df[df.index.notnull()]
+                if getattr(df.index, &#x27;tz&#x27;, None) is not None:
+                    df.index = df.index.tz_localize(None)
+                df = df.sort_index()
+            except Exception:
+                # If the CSV is corrupt, pretend it doesn&#x27;t exist to force a fresh pull
+                df = pd.DataFrame()
+        else:
+            df = pd.DataFrame()
+
+        # 2. CALCULATE MISSING DELTAS
+        fetch_ranges = []
+        
+        if df.empty:
+            # We have nothing; fetch the whole requested window
+            fetch_ranges.append((start_date, end_date))
+        else:
+            req_start = pd.to_datetime(start_date)
+            req_end = pd.to_datetime(end_date)
+            c_start = pd.to_datetime(df.index.min().strftime(&#x27;%Y-%m-%d&#x27;))
+            c_end = pd.to_datetime(df.index.max().strftime(&#x27;%Y-%m-%d&#x27;))
+            
+            # Check for missing data BEFORE our cache
+            if req_start &lt; c_start:
+                # Shift 1 day back to avoid re-downloading c_start
+                fetch_end = (c_start - pd.Timedelta(days=1)).strftime(&#x27;%Y-%m-%d&#x27;)
+                fetch_ranges.append((start_date, fetch_end))
+            
+            # Check for missing data AFTER our cache
+            if req_end &gt; c_end:
+                # Shift 1 day forward to avoid re-downloading c_end
+                fetch_start = (c_end + pd.Timedelta(days=1)).strftime(&#x27;%Y-%m-%d&#x27;)
+                
+                # GUARDRAIL: Only fetch if there is at least one business day in the gap.
+                missing_bdays = len(pd.bdate_range(start=fetch_start, end=end_date))
+                
+                if missing_bdays &gt; 0:
+                    fetch_ranges.append((fetch_start, end_date))
+                else:
+                    print(f&quot;✅ Gap ({fetch_start} to {end_date}) contains no trading days. Skipping API call.&quot;)
+
+        # 3. IF NO DELTAS, WE HAVE A FULL CACHE HIT
+        if not fetch_ranges:
+            print(f&quot;⚡ Full cache hit for {ticker} ({resolution}). Loaded directly from CSV.&quot;)
+            return df.loc[start_date:end_date]
+
+        # 4. FETCH ONLY THE MISSING PIECES
+        df_list = [df] if not df.empty else []
+        
+        for f_start, f_end in fetch_ranges:
+            print(f&quot;☁️ Downloading {ticker} ({resolution}) via API from {f_start} to {f_end}...&quot;)
+            self._enforce_speed_limit()
+
+            try:
+                new_data = fetch_callback(f_start, f_end)
+                if new_data is not None and not new_data.empty:
+                    df_list.append(new_data)
+                    
+            except Exception as e:
+                if &quot;429&quot; in str(e):
+                    print(f&quot;\n🚨 SDK Server Crash! The API forcefully rejected {ticker}.&quot;)
+                    print(&quot;😴 Forcing a hard 65-second server-reset penalty...&quot;)
+                    time.sleep(65)
+                    print(f&quot;🔄 Attempting {ticker} one final time...&quot;)
+                    return self._execute_with_cache(fetch_callback, ticker, start_date, end_date, resolution)
+                else:
+                    print(f&quot;❌ Connection or Parsing error: {e}&quot;)
+                    return None
+
+        # 5. MERGE, CLEAN, AND SAVE
+        if len(df_list) == (1 if not df.empty else 0):
+            print(f&quot;⚠️ API returned no new data for requested ranges.&quot;)
+            return df.loc[start_date:end_date] if not df.empty else None
+
+        combined_df = pd.concat(df_list).drop_duplicates().sort_index()
+        
+        # Clean up any duplicated dates safely before saving
+        combined_df = combined_df[~combined_df.index.duplicated(keep=&#x27;last&#x27;)]
+        combined_df.to_csv(filepath)
+
+        true_start = combined_df.index.min().strftime(&#x27;%Y-%m-%d&#x27;)
+        true_end = combined_df.index.max().strftime(&#x27;%Y-%m-%d&#x27;)
+        print(f&quot;💾 Merged and saved {ticker} to cache. (Total Coverage: {true_start} to {true_end})&quot;)
+
+        return combined_df.loc[start_date:end_date]
+
+
+    # =========================================================================
+    # STOCKS &amp; EQUITIES PROVIDER METHODS
+    # =========================================================================
+    def get_stock_data(self, ticker: str, start_date: str, end_date: str, timespan: str = &quot;day&quot;, multiplier: int = 1) -&gt; pd.DataFrame:
+        # 🛡️ Clean the dates before anything else!
+        if timespan.lower() in [&quot;day&quot;, &quot;daily&quot;, &quot;session&quot;]:
+            start_date, end_date = self._align_trade_dates(start_date, end_date, market=&quot;NYSE&quot;)
+
+        print(f&quot;📈 Fetching stock data for {ticker} ({multiplier} {timespan})...&quot;)
+
+        def _fetch(f_start, f_end):
+            aggs = self.client.get_aggs(
+                ticker=ticker,
+                multiplier=multiplier,
+                timespan=timespan,
+                limit=50000,
+                from_=f_start,
+                to=f_end
+            )
+            df = pd.DataFrame(aggs)
+            if not df.empty:
+                df[&#x27;timestamp&#x27;] = pd.to_datetime(df[&#x27;timestamp&#x27;], unit=&#x27;ms&#x27;)
+                df.set_index(&#x27;timestamp&#x27;, inplace=True)
+                df.index = df.index.tz_localize(&#x27;UTC&#x27;).tz_convert(&#x27;America/New_York&#x27;).tz_localize(None)
+            return df
+
+        resolution_label = f&quot;{multiplier}_{timespan}&quot;
+
+        return self._execute_with_cache(
+            fetch_callback=_fetch,
+            ticker=ticker,
+            start_date=start_date,
+            end_date=end_date,
+            resolution=resolution_label
+        )
+
+
+    # =========================================================================
+    # DIVIDENDS PROVIDER METHOD
+    # =========================================================================
+    def get_dividend_data(self, ticker: str, start_date: str = &quot;1970-01-01&quot;, end_date: str = &quot;2099-12-31&quot;) -&gt; pd.DataFrame:
+        print(f&quot;💰 Fetching dividend data for {ticker}...&quot;)
+
+        def _fetch(f_start, f_end):
+            url = &quot;https://api.massive.com/stocks/v1/dividends&quot;
+            params = {
+                &quot;ticker&quot;: ticker,
+                &quot;limit&quot;: 1000, 
+                &quot;sort&quot;: &quot;ex_dividend_date.asc&quot;,
+                &quot;apiKey&quot;: self.api_key
+            }
+
+            response = requests.get(url, params=params)
+            response.raise_for_status()
+
+            data = response.json()
+            df = pd.DataFrame(data.get(&quot;results&quot;, []))
+
+            if not df.empty:
+                time_col = &#x27;ex_dividend_date&#x27;
+                if time_col in df.columns:
+                    df[time_col] = pd.to_datetime(df[time_col])
+                    df.set_index(time_col, inplace=True)
+                    df.index = df.index.normalize()
+            return df
+
+        return self._execute_with_cache(
+            fetch_callback=_fetch,
+            ticker=ticker,
+            start_date=start_date,
+            end_date=end_date,
+            resolution=&quot;dividends&quot;
+        )
+
+
+    # =========================================================================
+    # FUTURES PROVIDER METHODS
+    # =========================================================================
+    def get_futures_data(self, contract_symbol: str, start_date: str, end_date: str, timespan: str = &quot;day&quot;, multiplier: int = 1) -&gt; pd.DataFrame:
+        is_daily_resolution = timespan.lower() in [&quot;day&quot;, &quot;daily&quot;, &quot;session&quot;]
+        
+        # 🛡️ Clean the dates before anything else!
+        if is_daily_resolution:
+            start_date, end_date = self._align_trade_dates(start_date, end_date, market=&quot;CME&quot;)
+
+        print(f&quot;🚀 Fetching futures data for {contract_symbol} ({multiplier} {timespan})...&quot;)
+
+        def _fetch(f_start, f_end):
+            url = f&quot;https://api.massive.com/futures/v1/aggs/{contract_symbol}&quot;
+            
+            # 1. Apply start-date shift ONLY to daily/session data
+            if is_daily_resolution:
+                massive_timespan = &quot;session&quot;
+                api_start = (pd.to_datetime(f_start) - pd.Timedelta(days=1)).strftime(&#x27;%Y-%m-%d&#x27;)
+            else:
+                 massive_timespan = &quot;min&quot; if timespan.lower() == &quot;minute&quot; else timespan.lower()
+                 # Intraday bars (1_min, 5_min, 60_min) keep exact start boundary
+                 api_start = f_start
+
+            # Guaranteed end-date buffer for both resolutions
+            api_end = (pd.to_datetime(f_end) + pd.Timedelta(days=1)).strftime(&#x27;%Y-%m-%d&#x27;)
+            resolution_string = f&quot;{multiplier}{massive_timespan}&quot;
+
+            params = {
+                &quot;resolution&quot;: resolution_string,
+                &quot;window_start.gte&quot;: api_start,
+                &quot;window_start.lte&quot;: api_end,
+                &quot;limit&quot;: 50000,
+                &quot;sort&quot;: &quot;window_start.asc&quot;,
+                &quot;apiKey&quot;: self.api_key
+            }
+
+            response = requests.get(url, params=params)
+            response.raise_for_status()
+
+            data = response.json()
+            df = pd.DataFrame(data.get(&quot;results&quot;, []))
+
+            if not df.empty:
+                time_col = &#x27;timestamp&#x27; if &#x27;timestamp&#x27; in df.columns else (&#x27;window_start&#x27; if &#x27;window_start&#x27; in df.columns else &#x27;t&#x27;)
+
+                try:
+                    df[time_col] = pd.to_datetime(df[time_col], unit=&#x27;ns&#x27;)
+                except ValueError:
+                    df[time_col] = pd.to_datetime(df[time_col])
+
+                df.set_index(time_col, inplace=True)
+
+                # 2. Map evening window_start times (18:00) to the Trade Date ONLY for daily bars
+                if timespan in [&#x27;day&#x27;, &#x27;week&#x27;, &#x27;month&#x27;, &#x27;session&#x27;]:
+                    # Massive API stamps daily futures bars at session open (the evening before).
+                    # Shift all daily/session timestamps forward 1 day to match the Trade Date. 
+                    df.index = (df.index + pd.Timedelta(days=1)).normalize()
+                else:
+                    if getattr(df.index, &#x27;tz&#x27;, None) is None:
+                        df.index = df.index.tz_localize(&#x27;UTC&#x27;)
+                    df.index = df.index.tz_convert(&#x27;America/New_York&#x27;).tz_localize(None)
+            
+            df = df.rename(columns={&#x27;ticker&#x27;:&#x27;Symbol&#x27;})
+            return df
+
+        resolution_label = f&quot;{multiplier}_{timespan}&quot;
+
+        return self._execute_with_cache(
+            fetch_callback=_fetch,
+            ticker=contract_symbol,
+            start_date=start_date,
+            end_date=end_date,
+            resolution=resolution_label
+        )</code></pre></div><button title="Copy to Clipboard" class="inline-flex items-center opacity-0 group-hover:opacity-100 hover:opacity-100 focus:opacity-100 active:opacity-100 cursor-pointer ml-2 transition-color duration-200 ease-in-out text-blue-400 hover:text-blue-500 absolute right-1 myst-code-copy-icon top-1" aria-pressed="false" aria-label="Copy code to clipboard"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"></path></svg></button></div></div></details><details class="myst-dropdown rounded-md my-5 shadow dark:shadow-2xl dark:shadow-neutral-900 overflow-hidden bg-gray-50 dark:bg-stone-800"><summary class="myst-dropdown-header m-0 text-lg font-medium py-1 min-h-[2em] pl-3 cursor-pointer hover:shadow-[inset_0_0_0px_30px_#00000003] dark:hover:shadow-[inset_0_0_0px_30px_#FFFFFF03] bg-gray-100 dark:bg-slate-900"><span class="myst-dropdown-header-title text-neutral-900 dark:text-white"><span class="block float-right text-sm font-thin text-neutral-700 dark:text-neutral-200"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" width="1.5rem" height="1.5rem" class="myst-dropdown-header-icon inline-block pl-2 mr-2 -translate-y-[1px] details-toggle transition-transform"><path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd"></path></svg></span>Click to see <code>FredReader</code></span></summary><div class="myst-dropdown-body px-4 py-1 details-body"><div class="relative myst-code group not-prose my-5 text-sm shadow hover:shadow-md dark:shadow-2xl dark:shadow-neutral-900 bg-stone-200/10"><div aria-label="code block content" class="block overflow-auto p-3 myst-code-body hljs"><pre style="background-color:#fff;padding:0;margin:0;background:transparent"><code class="language-text" style="white-space:pre">import json
+import os
+import requests
+import pandas as pd
+import datetime as dt
+import pandas_datareader.data as web
+from .fred_base import FredBase
+from financial_quant.security.credentials import secure_key_setup
+
+class FredReader(FredBase):
+
+    def __init__(
+        self,
+        api_key=None,
+        key_name=&quot;fred_key&quot;,
+        github_raw_base=None,
+        cache_dir=None,
+        enable_github_repo=False,  # &lt;-- Staging flag: Set to False for now
+    ):
+        super(FredReader, self).__init__(api_key=api_key, key_name=key_name)
+        if cache_dir:
+            self.cache_dir = cache_dir
+
+        self.github_raw_base = (
+            github_raw_base.rstrip(&quot;/&quot;) if github_raw_base else None
+        )
+        self.enable_github_repo = enable_github_repo
+
+    # --- PUBLIC WRAPPER METHOD ---
+    def get_series(
+        self, series_ids, start_date=None, end_date=None, ttl_days=7
+    ):
+        &quot;&quot;&quot;Fetches one or more series and returns them in a single merged DataFrame.&quot;&quot;&quot;
+        if isinstance(series_ids, str):
+            series_ids = [series_ids]
+        elif not hasattr(series_ids, &quot;__iter__&quot;):
+            raise TypeError(
+                &quot;series_ids must be a string or an iterable of strings.&quot;
+            )
+
+        dataframes = []
+
+        for series_id in series_ids:
+            print(f&quot;\n☁️--- Processing {series_id} ---&quot;)
+            df = self._get_single_series(
+                series_id,
+                start_date=start_date,
+                end_date=end_date,
+                ttl_days=ttl_days,
+            )
+            if df is not None and not df.empty:
+                dataframes.append(df)
+            else:
+                print(f&quot;⚠️ Skipping {series_id}: No data was returned.&quot;)
+
+        if dataframes:
+            if len(dataframes) == 1:
+                return dataframes[0]
+            print(&quot;\n🧩 Merging all series into a single DataFrame...&quot;)
+            combined_df = pd.concat(dataframes, axis=1, join=&quot;outer&quot;)
+            combined_df.sort_index(inplace=True)
+            print(&quot;✅ Merge complete!&quot;)
+            return combined_df
+        else:
+            print(&quot;❌ No data could be retrieved.&quot;)
+            return None
+
+    # --- CORE WORKHORSE METHOD ---
+    def _get_single_series(
+        self, series_id, start_date=None, end_date=None, ttl_days=7
+    ):
+        # Local Parquet &amp; Metadata Paths
+        filepath = os.path.abspath(
+            os.path.join(self.cache_dir, f&quot;{series_id}_fred.parquet&quot;)
+        )
+        metadata_file = os.path.abspath(
+            os.path.join(self.cache_dir, f&quot;{series_id}_metadata.json&quot;)
+        )
+
+        metadata = {}
+        metadata_is_stale = True
+        metadata_updated_this_run = False
+
+        # --- NESTED METADATA HELPER ---
+        def update_metadata():
+            nonlocal metadata, metadata_updated_this_run
+            if not self.api_key:
+                return True
+
+            meta_url = f&quot;https://api.stlouisfed.org/fred/series?series_id={series_id}&amp;api_key={self.api_key}&amp;file_type=json&quot;
+            try:
+                meta_data = self._make_api_request(
+                    meta_url, series_id=series_id
+                )
+                if not meta_data or &quot;seriess&quot; not in meta_data:
+                    return False
+
+                if len(meta_data[&quot;seriess&quot;]) &gt; 0:
+                    series_info = meta_data[&quot;seriess&quot;][0]
+                    metadata[&quot;series_inception&quot;] = series_info.get(
+                        &quot;observation_start&quot;
+                    )
+                    metadata[&quot;series_last_observed&quot;] = series_info.get(
+                        &quot;observation_end&quot;
+                    )
+                    metadata[&quot;title&quot;] = series_info.get(&quot;title&quot;)
+                    metadata[&quot;frequency&quot;] = series_info.get(&quot;frequency&quot;)
+                    metadata[&quot;last_updated&quot;] = dt.datetime.now(
+                        dt.timezone.utc
+                    ).isoformat()
+
+                    os.makedirs(self.cache_dir, exist_ok=True)
+                    with open(metadata_file, &quot;w&quot;) as f:
+                        json.dump(metadata, f, indent=4)
+
+                    metadata_updated_this_run = True
+                    print(&quot;⏳ Metadata synced and timestamp updated.&quot;)
+                    return True
+            except Exception as e:
+                print(f&quot;⚠️ Could not update metadata: {e}&quot;)
+                return False
+
+        # --- 1. READ LOCAL METADATA ---
+        if os.path.exists(metadata_file):
+            try:
+                with open(metadata_file, &quot;r&quot;) as f:
+                    metadata = json.load(f)
+            except (json.JSONDecodeError, ValueError):
+                print(
+                    f&quot;⚠️ Warning: Corrupt metadata for {series_id}. Resetting...&quot;
+                )
+                metadata = {}
+                try:
+                    os.remove(metadata_file)
+                except Exception:
+                    pass
+
+            if &quot;last_updated&quot; in metadata:
+                last_updated = dt.datetime.fromisoformat(
+                    metadata[&quot;last_updated&quot;]
+                )
+                if last_updated.tzinfo is None:
+                    last_updated = last_updated.replace(tzinfo=dt.timezone.utc)
+
+                days_old = (
+                    dt.datetime.now(dt.timezone.utc) - last_updated
+                ).days
+                if days_old &lt; ttl_days:
+                    metadata_is_stale = False
+                    print(f&quot;🕒 Metadata is fresh ({days_old} days old).&quot;)
+                else:
+                    print(
+                        f&quot;⏳ Metadata is {days_old} days old (TTL: {ttl_days}). It&#x27;s stale.&quot;
+                    )
+
+        # --- 2. SMART PING ---
+        if not metadata:
+            print(f&quot;🆕 First run for {series_id}. Initializing metadata...&quot;)
+            update_metadata()
+        elif (
+            self.api_key
+            and end_date
+            and &quot;series_last_observed&quot; in metadata
+            and metadata_is_stale
+        ):
+            if pd.to_datetime(end_date) &gt; pd.to_datetime(
+                metadata[&quot;series_last_observed&quot;]
+            ):
+                print(
+                    &quot;🔎 Requested date exceeds known end date. Checking for updates...&quot;
+                )
+                update_metadata()
+
+        # --- 3. CLAMP DATES ---
+        if &quot;series_inception&quot; in metadata and start_date:
+            clamped_start = max(
+                pd.to_datetime(start_date),
+                pd.to_datetime(metadata[&quot;series_inception&quot;]),
+            )
+            if pd.to_datetime(start_date) &lt; clamped_start:
+                start_date = clamped_start.strftime(&quot;%Y-%m-%d&quot;)
+                print(
+                    f&quot;⚠️ Adjusted start date to First Available Data: {start_date}&quot;
+                )
+
+        if &quot;series_last_observed&quot; in metadata and end_date:
+            clamped_end = min(
+                pd.to_datetime(end_date),
+                pd.to_datetime(metadata[&quot;series_last_observed&quot;]),
+            )
+            if pd.to_datetime(end_date) &gt; clamped_end:
+                end_date = clamped_end.strftime(&quot;%Y-%m-%d&quot;)
+                print(
+                    f&quot;⚠️ FRED has no data past {end_date}. Adjusted request to match.&quot;
+                )
+
+        # --- 4. CHECK LOCAL CACHE (PARQUET) ---
+        if os.path.exists(filepath) and not metadata_is_stale:
+            try:
+                df = pd.read_parquet(filepath)
+                cache_start, cache_end = df.index.min(), df.index.max()
+
+                valid_start = not (
+                    start_date
+                    and pd.to_datetime(start_date)
+                    &lt; cache_start - pd.Timedelta(days=5)
+                )
+                valid_end = not (
+                    end_date and pd.to_datetime(end_date) &gt; cache_end
+                )
+
+                if valid_start and valid_end:
+                    print(f&quot;✅ Loaded {series_id} from local Parquet cache.&quot;)
+                    if start_date:
+                        df = df[df.index &gt;= pd.to_datetime(start_date)]
+                    if end_date:
+                        df = df[df.index &lt;= pd.to_datetime(end_date)]
+                    return df
+            except Exception as e:
+                print(
+                    f&quot;⚠️ Local cache corrupt or unreadable: {e}. Moving to next tier...&quot;
+                )
+
+        # --- 5. CHECK GITHUB STATIC DATA REPO TIER ---
+        if self.enable_github_repo and self.github_raw_base:
+            github_url = f&quot;{self.github_raw_base}/{series_id}_fred.parquet&quot;
+            print(f&quot;🌐 [Staged Tier] Checking GitHub Data Repo: {github_url}...&quot;)
+            try:
+                # Attempt to stream parquet directly from GitHub
+                df = pd.read_parquet(github_url)
+                print(
+                    f&quot;✅ Found {series_id} in GitHub Repo! Caching locally...&quot;
+                )
+
+                # Save directly to environment cache
+                os.makedirs(self.cache_dir, exist_ok=True)
+                df.to_parquet(filepath)
+
+                if start_date:
+                    df = df[df.index &gt;= pd.to_datetime(start_date)]
+                if end_date:
+                    df = df[df.index &lt;= pd.to_datetime(end_date)]
+                return df
+
+            except Exception as e:
+                # Controlled exception catching during staging
+                print(
+                    f&quot;ℹ️ GitHub Repo lookup bypassed/failed ({e}). Proceeding to API tier...&quot;
+                )
+        else:
+            print(&quot; Skipping GitHub static repo check (Tier disabled).&quot;)
+
+        # --- 6. API FETCH (FRED / WEB) ---
+# --- TIER 3: LIVE API FETCH ---
+        print(f&quot;☁️ Fetching fresh {series_id} observations from API...&quot;)
+        try:
+            if self.api_key is None:
+                df = web.DataReader(
+                    series_id, &quot;fred&quot;, start=start_date, end=end_date
+                )
+            else:
+                url = f&quot;https://api.stlouisfed.org/fred/series/observations?series_id={series_id}&amp;api_key={self.api_key}&amp;file_type=json&quot;
+                if start_date:
+                    url += f&quot;&amp;observation_start={start_date}&quot;
+                if end_date:
+                    url += f&quot;&amp;observation_end={end_date}&quot;
+
+                data = self._make_api_request(url)
+                if not data or &quot;observations&quot; not in data:
+                    return None
+
+                df = pd.DataFrame(data[&quot;observations&quot;])
+                df[&quot;DATE&quot;] = pd.to_datetime(df[&quot;date&quot;])
+                df[series_id] = pd.to_numeric(df[&quot;value&quot;], errors=&quot;coerce&quot;)
+                df = df.set_index(&quot;DATE&quot;)
+                df = df[[series_id]]
+
+            df.dropna(inplace=True)
+
+            # Save newly fetched API data to local Parquet cache
+            os.makedirs(self.cache_dir, exist_ok=True)
+            df.to_parquet(filepath)
+            print(f&quot;Success! Saved fresh Parquet data to {filepath}.&quot;)
+            return df
+
+        except Exception as e:
+            print(f&quot;❌ An error occurred in API fetch: {e}&quot;)
+            return None</code></pre></div><button title="Copy to Clipboard" class="inline-flex items-center opacity-0 group-hover:opacity-100 hover:opacity-100 focus:opacity-100 active:opacity-100 cursor-pointer ml-2 transition-color duration-200 ease-in-out text-blue-400 hover:text-blue-500 absolute right-1 myst-code-copy-icon top-1" aria-pressed="false" aria-label="Copy code to clipboard"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"></path></svg></button></div></div></details><details class="myst-dropdown rounded-md my-5 shadow dark:shadow-2xl dark:shadow-neutral-900 overflow-hidden bg-gray-50 dark:bg-stone-800"><summary class="myst-dropdown-header m-0 text-lg font-medium py-1 min-h-[2em] pl-3 cursor-pointer hover:shadow-[inset_0_0_0px_30px_#00000003] dark:hover:shadow-[inset_0_0_0px_30px_#FFFFFF03] bg-gray-100 dark:bg-slate-900"><span class="myst-dropdown-header-title text-neutral-900 dark:text-white"><span class="block float-right text-sm font-thin text-neutral-700 dark:text-neutral-200"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" width="1.5rem" height="1.5rem" class="myst-dropdown-header-icon inline-block pl-2 mr-2 -translate-y-[1px] details-toggle transition-transform"><path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd"></path></svg></span>Click to see <code>static_futures_data</code></span></summary><div class="myst-dropdown-body px-4 py-1 details-body"><div class="relative myst-code group not-prose my-5 text-sm shadow hover:shadow-md dark:shadow-2xl dark:shadow-neutral-900 bg-stone-200/10"><div aria-label="code block content" class="block overflow-auto p-3 myst-code-body hljs"><pre style="background-color:#fff;padding:0;margin:0;background:transparent"><code class="language-text" style="white-space:pre">import sys
+import requests
+import time
+import pandas as pd
+from io import BytesIO
+from pathlib import Path
+
+# 1. Define repo configuration
+GITHUB_RAW_BASE_URL = &quot;https://raw.githubusercontent.com/PatrickJHess/Static_Data_Repo/main/Futures&quot;
+
+# 2. Environment-Aware Cache Routing with Google Drive
+if &#x27;google.colab&#x27; in sys.modules:
+    from google.colab import drive
+    # Mount Google Drive (will prompt for authorization if not already mounted)
+    drive.mount(&#x27;/content/drive&#x27;)
+    # Route cache to persistent Google Drive folder
+    DEFAULT_CACHE_DIR = Path(&quot;/content/drive/MyDrive/Futures_Static&quot;)
+else:
+    # Use standard local directory for Jupyter/VSCode
+    DEFAULT_CACHE_DIR = Path.cwd() / &quot;cache&quot; / &quot;Futures_Static&quot;
+
+def static_futures_data(file_name, cache_dir=DEFAULT_CACHE_DIR, force_update=False, cache_ttl_hours=24):
+    
+    # 3. Standardize Parquet Filename and cache
+    filename = f&quot;{file_name}.parquet&quot;
+    # Ensure local cache folder exists
+    cache_path = Path(cache_dir)
+    cache_path.mkdir(parents=True, exist_ok=True)
+    file_path = cache_path / filename
+
+    # 4. Check how old the cache file is (if it exists)
+    is_cache_stale = False
+    if file_path.exists():
+        # Last modification time number of seconds elapsed since the Unix epoch)
+        file_age_seconds = time.time() - file_path.stat().st_mtime
+
+        # Check if ttl is past due
+        if file_age_seconds &gt; (cache_ttl_hours * 3600):
+            is_cache_stale = True
+
+    # 5. Tier 1: Load Local Cache (If exists, not forced, and not stale)
+    if file_path.exists() and not force_update and not is_cache_stale:
+        print(f&quot;Loading Parquet data from local cache: {filename}&quot;)
+        return pd.read_parquet(file_path).set_index(&#x27;Date&#x27;)
+
+    # 6. Tier 2: Cache is stale or forced update from github repo
+    else:
+        # Determine the reason for logging
+        if force_update:
+            reason = &quot;Force update requested&quot;
+        elif is_cache_stale:
+            reason = f&quot;Cache older than {cache_ttl_hours} hours&quot;
+        else:
+            reason = &quot;Not found in cache&quot;
+
+        print(f&quot;Fetching Parquet data from GitHub ({reason}): {filename}&quot;)
+
+        github_url = f&quot;{GITHUB_RAW_BASE_URL}/{filename}&quot;
+        try:
+            response = requests.get(github_url, timeout=10)
+            response.raise_for_status()
+
+            # Read into Pandas
+            df = pd.read_parquet(BytesIO(response.content))
+
+            # Save fresh copy to cache (this automatically resets the file&#x27;s timestamp)
+            df.to_parquet(file_path, index=False)
+
+            # Set index and return
+            return df.set_index(&#x27;Date&#x27;)
+
+        except Exception as e:
+            print(f&quot;Error loading Parquet data: {e}&quot;)
+            # Fallback: if GitHub fails but we have a stale cache, use it anyway
+            if file_path.exists():
+                print(&quot;Falling back to stale local cache due to download error.&quot;)
+                return pd.read_parquet(file_path).set_index(&#x27;Date&#x27;)
+            return None</code></pre></div><button title="Copy to Clipboard" class="inline-flex items-center opacity-0 group-hover:opacity-100 hover:opacity-100 focus:opacity-100 active:opacity-100 cursor-pointer ml-2 transition-color duration-200 ease-in-out text-blue-400 hover:text-blue-500 absolute right-1 myst-code-copy-icon top-1" aria-pressed="false" aria-label="Copy code to clipboard"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"></path></svg></button></div></div></details><details class="myst-dropdown rounded-md my-5 shadow dark:shadow-2xl dark:shadow-neutral-900 overflow-hidden bg-gray-50 dark:bg-stone-800"><summary class="myst-dropdown-header m-0 text-lg font-medium py-1 min-h-[2em] pl-3 cursor-pointer hover:shadow-[inset_0_0_0px_30px_#00000003] dark:hover:shadow-[inset_0_0_0px_30px_#FFFFFF03] bg-gray-100 dark:bg-slate-900"><span class="myst-dropdown-header-title text-neutral-900 dark:text-white"><span class="block float-right text-sm font-thin text-neutral-700 dark:text-neutral-200"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" width="1.5rem" height="1.5rem" class="myst-dropdown-header-icon inline-block pl-2 mr-2 -translate-y-[1px] details-toggle transition-transform"><path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd"></path></svg></span>Click to see <code>graph_uncertainty_arb</code></span></summary><div class="myst-dropdown-body px-4 py-1 details-body"><div class="relative myst-code group not-prose my-5 text-sm shadow hover:shadow-md dark:shadow-2xl dark:shadow-neutral-900 bg-stone-200/10"><div aria-label="code block content" class="block overflow-auto p-3 myst-code-body hljs"><pre style="background-color:#fff;padding:0;margin:0;background:transparent"><code class="language-text" style="white-space:pre">mport os
+import sys
+import re
+import pandas as pd
+import numpy as np
+from pathvalidate import sanitize_filepath
+from matplotlib import pyplot as plt
+import openpyxl
+from openpyxl.utils import get_column_letter
+from IPython.display import display, Markdown as md
+from pathlib import Path
+import altair as alt
+def graph_uncertainty_arb(df_list, asset):
+    &quot;&quot;&quot;
+    Generates a 2-tier dashboard:
+    Top Row: Static side-by-side Volume and Closing Price charts.
+    Bottom Row: Interactive Overview/Detail chart explicitly for Closing Price.
+    &quot;&quot;&quot;
+    # 1. Prepare the combined dataset
+    df_combined = pd.concat(df_list).reset_index(names=&#x27;date&#x27;)
+
+    price_domain = [df_combined[&#x27;close&#x27;].min() * 0.9, df_combined[&#x27;close&#x27;].max() * 1.1]
+    volume_domain = [df_combined[&#x27;volume&#x27;].min() * 0.9, df_combined[&#x27;volume&#x27;].max() * 1.1]
+
+    # Shared base chart ensures both rows get the legend by default
+    base_chart = alt.Chart(df_combined).mark_line().encode(
+        color=alt.Color(&#x27;symbol:N&#x27;, legend=alt.Legend(title=&quot;Symbol&quot;))
+    )
+
+    # --- TOP ROW: Static Side-by-Side ---
+    volume_chart = base_chart.encode(
+        x=alt.X(&#x27;date:T&#x27;, title=&#x27;Date&#x27;),
+        y=alt.Y(&#x27;volume:Q&#x27;, title=&#x27;Volume&#x27;, scale=alt.Scale(domain=volume_domain))
+    ).properties(
+        width=300, height=350, title=f&#x27;{asset} Trading Volume - Full Timeline&#x27;
+    )
+
+    price_chart = base_chart.encode(
+        x=alt.X(&#x27;date:T&#x27;, title=&#x27;Date&#x27;),
+        y=alt.Y(&#x27;close:Q&#x27;, title=&#x27;Price&#x27;, scale=alt.Scale(domain=price_domain))
+    ).properties(
+        width=300, height=350, title=f&#x27;{asset} Closing Prices - Arb Effect&#x27;
+    )
+
+    top_row = volume_chart | price_chart
+
+
+    # --- BOTTOM ROW: Interactive Arb Effect (Price Only) ---
+    brush = alt.selection_interval(encodings=[&#x27;x&#x27;])
+
+    price_base = base_chart.encode(
+        y=alt.Y(&#x27;close:Q&#x27;, title=&#x27;Price&#x27;, scale=alt.Scale(domain=price_domain))
+    )
+
+    # Upper Detailed Price Chart (Keeps the legend from base_chart)
+    price_upper = price_base.encode(
+        x=alt.X(&#x27;date:T&#x27;, scale=alt.Scale(domain=brush), title=&#x27;&#x27;)
+    ).properties(
+        width=650, height=260, title=f&#x27;Interactive Detail: {asset} Arb Effect&#x27;
+    )
+
+    # Lower Overview Price Chart (Legend explicitly hidden)
+    price_lower = price_base.encode(
+        x=alt.X(&#x27;date:T&#x27;, title=&#x27;Date (Drag to Zoom)&#x27;),
+        color=alt.Color(&#x27;symbol:N&#x27;, legend=None) 
+    ).properties(
+        width=650, height=150
+    ).add_params(
+        brush
+    )
+
+    bottom_row = price_upper &amp; price_lower
+
+
+    # --- FINAL DASHBOARD COMBINATION ---
+    # We resolve the legend independently so Altair doesn&#x27;t try to force 
+    # the top row and bottom row to share a single, awkwardly placed legend.
+    final_dashboard = (top_row &amp; bottom_row).resolve_legend(
+        color=&quot;independent&quot;
+    )
+
+    return final_dashboard</code></pre></div><button title="Copy to Clipboard" class="inline-flex items-center opacity-0 group-hover:opacity-100 hover:opacity-100 focus:opacity-100 active:opacity-100 cursor-pointer ml-2 transition-color duration-200 ease-in-out text-blue-400 hover:text-blue-500 absolute right-1 myst-code-copy-icon top-1" aria-pressed="false" aria-label="Copy code to clipboard"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"></path></svg></button></div></div></details><details class="myst-dropdown rounded-md my-5 shadow dark:shadow-2xl dark:shadow-neutral-900 overflow-hidden bg-gray-50 dark:bg-stone-800"><summary class="myst-dropdown-header m-0 text-lg font-medium py-1 min-h-[2em] pl-3 cursor-pointer hover:shadow-[inset_0_0_0px_30px_#00000003] dark:hover:shadow-[inset_0_0_0px_30px_#FFFFFF03] bg-gray-100 dark:bg-slate-900"><span class="myst-dropdown-header-title text-neutral-900 dark:text-white"><span class="block float-right text-sm font-thin text-neutral-700 dark:text-neutral-200"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon" width="1.5rem" height="1.5rem" class="myst-dropdown-header-icon inline-block pl-2 mr-2 -translate-y-[1px] details-toggle transition-transform"><path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd"></path></svg></span>Click to see <code>one_y_axis</code></span></summary><div class="myst-dropdown-body px-4 py-1 details-body"><div class="relative myst-code group not-prose my-5 text-sm shadow hover:shadow-md dark:shadow-2xl dark:shadow-neutral-900 bg-stone-200/10"><div aria-label="code block content" class="block overflow-auto p-3 myst-code-body hljs"><pre style="background-color:#fff;padding:0;margin:0;background:transparent"><code class="language-text" style="white-space:pre">import os
+import sys
+import re
+import pandas as pd
+import numpy as np
+from pathvalidate import sanitize_filepath
+from matplotlib import pyplot as plt
+import openpyxl
+from openpyxl.utils import get_column_letter
+from IPython.display import display, Markdown as md
+from pathlib import Path
+import altair as alt
+def one_y_axis(x_data, y_data_list, title=&quot;&quot;, xlabel=&quot;&quot;, ylabel=&quot;&quot;, 
+                     series_labels=None, markers=None, colors=None,
+                     figure_size=(10, 6), y_limits=None, 
+                     save_config=None, fill_config=None):
+    &quot;&quot;&quot;
+    Plots data on a single y-axis.
+
+    Args:
+        x_data (array-like): Data for the x-axis.
+        y_data_list (list of array-like): A list of datasets for the y-axis.
+        title (str): The title of the graph.
+        xlabel (str): The label for the x-axis.
+        ylabel (str): The label for the y-axis.
+        series_labels (list of str, optional): Identifiers for each data series. 
+        markers (list of str, optional): The markers to use for each series.
+        colors (list of str, optional): Colors for each series.
+        figure_size (tuple): The width and height of the figure in inches.
+        y_limits (tuple, optional): The (min, max) values for the y-axis.
+        save_config (dict, optional): Config for saving the file. Keys: &#x27;volume&#x27;, &#x27;chapter&#x27;, &#x27;file_name&#x27;.
+        fill_config (dict, optional): Config for filling areas. Keys: &#x27;Between&#x27; (list of 1 or 2 indices),
+                                      &#x27;Start&#x27;, &#x27;End&#x27;, &#x27;Colors&#x27;, &#x27;Labels&#x27;, &#x27;Alpha&#x27;.
+    &quot;&quot;&quot;
+
+
+    num_series = len(y_data_list)
+
+    # --- Smart Defaults (Frictionless Inputs) ---
+    series_labels = series_labels or [f&quot;Series {i+1}&quot; for i in range(num_series)]
+    markers = markers or [&quot;&quot;] * num_series
+    colors = colors or plt.cm.viridis_r(np.linspace(0, 1, num_series))
+
+    # Input Validation
+    if not (len(series_labels) == len(markers) == len(colors) == num_series):
+        raise ValueError(&quot;Lengths of &#x27;series_labels&#x27;, &#x27;markers&#x27;, and &#x27;colors&#x27; must match &#x27;y_data_list&#x27;.&quot;)
+
+    # --- Plotting Setup (Protects Global State) ---
+    with plt.style.context(&#x27;ggplot&#x27;):
+        fig, ax = plt.subplots(figsize=figure_size)
+        fig.suptitle(title)
+
+        # --- Pythonic Loop ---
+        for y_data, label, marker, color in zip(y_data_list, series_labels, markers, colors):
+            ax.plot(x_data, y_data, label=label, marker=marker, color=color)
+
+        # --- Implement the Missing Fill Feature ---
+        if fill_config:
+            indices = fill_config.get(&#x27;Between&#x27;, [0])
+            y1 = y_data_list[indices[0]]
+            y2 = y_data_list[indices[1]] if len(indices) &gt; 1 else np.zeros_like(y1)
+            
+            start, end = fill_config.get(&#x27;Start&#x27;, 0), fill_config.get(&#x27;End&#x27;, len(x_data))
+            
+            ax.fill_between(
+                x_data[start:end], y1[start:end], y2[start:end],
+                color=fill_config.get(&#x27;Colors&#x27;, &#x27;gray&#x27;),
+                alpha=fill_config.get(&#x27;Alpha&#x27;, 0.3),
+                label=fill_config.get(&#x27;Labels&#x27;, None)
+            )
+
+        # --- Final Touches ---
+        if y_limits:
+            ax.set_ylim(y_limits)
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel(ylabel)
+        ax.legend()
+        plt.tight_layout()
+
+        # --- Save Figure ---
+        if save_config:
+            # Assuming save_results is imported/defined elsewhere in your script
+            path = save_results(save_config=save_config)
+            if path:
+                plt.savefig(path, dpi=300, bbox_inches=&#x27;tight&#x27;)
+
+        plt.show()</code></pre></div><button title="Copy to Clipboard" class="inline-flex items-center opacity-0 group-hover:opacity-100 hover:opacity-100 focus:opacity-100 active:opacity-100 cursor-pointer ml-2 transition-color duration-200 ease-in-out text-blue-400 hover:text-blue-500 absolute right-1 myst-code-copy-icon top-1" aria-pressed="false" aria-label="Copy code to clipboard"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"></path></svg></button></div></div></details><div class="myst-backmatter-parts"></div><div class="myst-footer-links flex pt-10 mb-10 space-x-4"><a class="myst-footer-link flex-1 block p-4 font-normal text-gray-600 no-underline border border-gray-200 rounded shadow-sm group hover:border-blue-600 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 dark:text-gray-100 dark:border-gray-500 hover:shadow-lg dark:shadow-neutral-700 myst-footer-link-prev" aria-label="Previous: 📝 Chapter Summary" href="/Derivatives-Futures-Chapter-Two//chapter-summary"><div class="flex h-full align-middle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" width="1.5rem" height="1.5rem" class="myst-footer-link-icon self-center transition-transform group-hover:-translate-x-1 shrink-0"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path></svg><div class="flex-grow text-right"><div class="myst-footer-link-group text-xs text-gray-500 dark:text-gray-400">Chapter Two: 📈 Visualizing the Concepts and Applying the Model: Arbitrage and the Cost of Carry ⚙️</div>📝 Chapter Summary</div></div></a></div></article></main><script>((a,l)=>{if(!window.history.state||!window.history.state.key){let u=Math.random().toString(32).slice(2);window.history.replaceState({key:u},"")}try{let d=JSON.parse(sessionStorage.getItem(a)||"{}")[l||window.history.state.key];typeof d=="number"&&window.scrollTo(0,d)}catch(u){console.error(u),sessionStorage.removeItem(a)}})("positions", null)</script><link rel="modulepreload" href="/Derivatives-Futures-Chapter-Two//build/entry.client-PCJPW7TK.js"/><link rel="modulepreload" href="/Derivatives-Futures-Chapter-Two//build/_shared/chunk-AQ2CODAG.js"/><link rel="modulepreload" href="/Derivatives-Futures-Chapter-Two//build/_shared/chunk-JJXTQVMA.js"/><link rel="modulepreload" href="/Derivatives-Futures-Chapter-Two//build/_shared/chunk-OZE3FFNP.js"/><link rel="modulepreload" href="/Derivatives-Futures-Chapter-Two//build/_shared/chunk-RUUCG5OS.js"/><link rel="modulepreload" href="/Derivatives-Futures-Chapter-Two//build/_shared/chunk-C4DFGG5C.js"/><link rel="modulepreload" href="/Derivatives-Futures-Chapter-Two//build/_shared/chunk-J7TUH54J.js"/><link rel="modulepreload" href="/Derivatives-Futures-Chapter-Two//build/_shared/chunk-FZ2S7OYD.js"/><link rel="modulepreload" href="/Derivatives-Futures-Chapter-Two//build/_shared/chunk-JEM6JXYA.js"/><link rel="modulepreload" href="/Derivatives-Futures-Chapter-Two//build/_shared/chunk-34XIY2DH.js"/><link rel="modulepreload" href="/Derivatives-Futures-Chapter-Two//build/_shared/chunk-KQM5FBHR.js"/><link rel="modulepreload" href="/Derivatives-Futures-Chapter-Two//build/_shared/chunk-OCWQY3HK.js"/><link rel="modulepreload" href="/Derivatives-Futures-Chapter-Two//build/_shared/chunk-7HNKBP4B.js"/><link rel="modulepreload" href="/Derivatives-Futures-Chapter-Two//build/_shared/chunk-CUKUDK3R.js"/><link rel="modulepreload" href="/Derivatives-Futures-Chapter-Two//build/_shared/chunk-3EBOCCHJ.js"/><link rel="modulepreload" href="/Derivatives-Futures-Chapter-Two//build/_shared/chunk-O4VQNZ62.js"/><link rel="modulepreload" href="/Derivatives-Futures-Chapter-Two//build/_shared/chunk-4OEDG4JQ.js"/><link rel="modulepreload" href="/Derivatives-Futures-Chapter-Two//build/_shared/chunk-GUCIBHGO.js"/><link rel="modulepreload" href="/Derivatives-Futures-Chapter-Two//build/root-3VHQT63W.js"/><link rel="modulepreload" href="/Derivatives-Futures-Chapter-Two//build/_shared/chunk-SHVDI3JB.js"/><link rel="modulepreload" href="/Derivatives-Futures-Chapter-Two//build/routes/$-O2KOSX5W.js"/><script>window.__remixContext = {"url":"/imported-functions","state":{"loaderData":{"root":{"config":{"version":3,"myst":"1.9.0","options":{},"nav":[],"actions":[],"projects":[{"downloads":[],"title":"\"📈 Visualizing the Concepts and Applying the Model: Arbitrage and the Cost of Carry ⚙️\"","authors":[{"nameParsed":{"literal":"Financial Python","given":"Financial","family":"Python"},"name":"Financial Python","id":"contributors-myst-generated-uid-0"}],"github":"https://github.com/PatrickJHess/Derivatives-Futures-Chapter-Two","copyright":"2025 by the University of Virginia Darden School Foundation, Charlottesville, VA.","parts":{"abstract":{"mdast":{"type":"root","children":[{"type":"block","data":{"part":"abstract"},"children":[{"type":"paragraph","position":{"start":{"line":1,"column":1},"end":{"line":1,"column":1}},"children":[{"type":"text","value":"Pricing Futures","position":{"start":{"line":1,"column":1},"end":{"line":1,"column":1}},"key":"fzBGYDVvHQ"}],"key":"Oqh8UyYoIO"}],"key":"dCKForIkDb"}],"key":"y9A1E0fV62"},"frontmatter":{"authors":[{"nameParsed":{"literal":"Financial Python","given":"Financial","family":"Python"},"name":"Financial Python","id":"contributors-myst-generated-uid-0"}],"github":"https://github.com/PatrickJHess/Derivatives-Futures-Chapter-Two","copyright":"2025 by the University of Virginia Darden School Foundation, Charlottesville, VA.","source_url":"https://github.com/PatrickJHess/Derivatives-Futures-Chapter-Two/blob/main/myst.yml#project.parts.abstract","edit_url":"https://github.com/PatrickJHess/Derivatives-Futures-Chapter-Two/edit/main/myst.yml#project.parts.abstract"}}},"thebe":{"binder":{"url":"https://mybinder.org/","provider":"github","repo":"PatrickJHess/Derivatives-Futures-Chapter-Two","ref":"master"}},"toc":[{"file":"intro.md","title":"Introduction"},{"children":[{"file":"shared_files_finpy/Interacting With Jupyter Books","title":"Interacting With Jupyter Books"}],"title":"Getting Started"},{"children":[{"file":"Chapter_One_Highlights.md","title":"✨ Chapter Highlights"},{"file":"notebooks/uncertainty_arbitrage.ipynb","title":"🔐⚖️ Conceptualizing Pricing: The Transmission of Uncertainty and the Power of Arbitrage"},{"file":"notebooks/pricing.ipynb"},{"file":"Chapter_Summary.md","title":"📝 Chapter Summary"},{"file":"imported_functions.md","title":"Imported Functions"}],"title":"Chapter Two: 📈 Visualizing the Concepts and Applying the Model: Arbitrage and the Cost of Carry ⚙️"},{"children":[{"url":"https://patrickjhess.github.io/Volume-Four-Chapter-One/","title":"Chapter One: Mastering Futures Markets 💹: From Data Sourcing 💻 to Market Mechanics 🛠️"},{"url":"https://patrickjhess.github.io/Volume-Four-Chapter-Three/","title":"Chapters Three: Are Yields To Maturity Useful"},{"url":"https://patrickjhess.github.io/Volume-Four-Chapter-Four/","title":"Chapters Four:  📈 Interest Rate Risk: From Static Metrics to Dynamic Simulation"}],"title":"Other Chapters Of The Volume"}],"exports":[],"bibliography":[],"index":"index","pages":[{"level":1,"title":"Getting Started"},{"level":1,"title":"Chapter Two: 📈 Visualizing the Concepts and Applying the Model: Arbitrage and the Cost of Carry ⚙️"},{"slug":"uncertainty-arbitrage","title":"⚖️ Conceptualizing Pricing: The Transmission of Uncertainty and the Power of Arbitrage","short_title":"🔐⚖️ Conceptualizing Pricing: The Transmission of Uncertainty and the Power of Arbitrage","description":"","date":"","thumbnail":"/Derivatives-Futures-Chapter-Two//build/7e2db436150c38a00650f96925aa5581.svg","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"pricing","title":"👁️‍🗨️ From Visualization to Calculation: Applying the Cost of Carry Model ⚖️","description":"","date":"","thumbnail":"/Derivatives-Futures-Chapter-Two//build/7e2db436150c38a00650f96925aa5581.svg","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"chapter-summary","title":"📝 Chapter Summary","short_title":"📝 Chapter Summary","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"imported-functions","title":"Imported Functions","short_title":"Imported Functions","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"level":1,"title":"Other Chapters Of The Volume"},{"title":"Chapter One: Mastering Futures Markets 💹: From Data Sourcing 💻 to Market Mechanics 🛠️","url":"https://patrickjhess.github.io/Volume-Four-Chapter-One/","level":2},{"title":"Chapters Three: Are Yields To Maturity Useful","url":"https://patrickjhess.github.io/Volume-Four-Chapter-Three/","level":2},{"title":"Chapters Four:  📈 Interest Rate Risk: From Static Metrics to Dynamic Simulation","url":"https://patrickjhess.github.io/Volume-Four-Chapter-Four/","level":2}]}]},"CONTENT_CDN_PORT":"3100","MODE":"static","BASE_URL":"/Derivatives-Futures-Chapter-Two/"},"routes/$":{"config":{"version":3,"myst":"1.9.0","options":{},"nav":[],"actions":[],"projects":[{"downloads":[],"title":"\"📈 Visualizing the Concepts and Applying the Model: Arbitrage and the Cost of Carry ⚙️\"","authors":[{"nameParsed":{"literal":"Financial Python","given":"Financial","family":"Python"},"name":"Financial Python","id":"contributors-myst-generated-uid-0"}],"github":"https://github.com/PatrickJHess/Derivatives-Futures-Chapter-Two","copyright":"2025 by the University of Virginia Darden School Foundation, Charlottesville, VA.","parts":{"abstract":{"mdast":{"type":"root","children":[{"type":"block","data":{"part":"abstract"},"children":[{"type":"paragraph","position":{"start":{"line":1,"column":1},"end":{"line":1,"column":1}},"children":[{"type":"text","value":"Pricing Futures","position":{"start":{"line":1,"column":1},"end":{"line":1,"column":1}},"key":"fzBGYDVvHQ"}],"key":"Oqh8UyYoIO"}],"key":"dCKForIkDb"}],"key":"y9A1E0fV62"},"frontmatter":{"authors":[{"nameParsed":{"literal":"Financial Python","given":"Financial","family":"Python"},"name":"Financial Python","id":"contributors-myst-generated-uid-0"}],"github":"https://github.com/PatrickJHess/Derivatives-Futures-Chapter-Two","copyright":"2025 by the University of Virginia Darden School Foundation, Charlottesville, VA.","source_url":"https://github.com/PatrickJHess/Derivatives-Futures-Chapter-Two/blob/main/myst.yml#project.parts.abstract","edit_url":"https://github.com/PatrickJHess/Derivatives-Futures-Chapter-Two/edit/main/myst.yml#project.parts.abstract"}}},"thebe":{"binder":{"url":"https://mybinder.org/","provider":"github","repo":"PatrickJHess/Derivatives-Futures-Chapter-Two","ref":"master"}},"toc":[{"file":"intro.md","title":"Introduction"},{"children":[{"file":"shared_files_finpy/Interacting With Jupyter Books","title":"Interacting With Jupyter Books"}],"title":"Getting Started"},{"children":[{"file":"Chapter_One_Highlights.md","title":"✨ Chapter Highlights"},{"file":"notebooks/uncertainty_arbitrage.ipynb","title":"🔐⚖️ Conceptualizing Pricing: The Transmission of Uncertainty and the Power of Arbitrage"},{"file":"notebooks/pricing.ipynb"},{"file":"Chapter_Summary.md","title":"📝 Chapter Summary"},{"file":"imported_functions.md","title":"Imported Functions"}],"title":"Chapter Two: 📈 Visualizing the Concepts and Applying the Model: Arbitrage and the Cost of Carry ⚙️"},{"children":[{"url":"https://patrickjhess.github.io/Volume-Four-Chapter-One/","title":"Chapter One: Mastering Futures Markets 💹: From Data Sourcing 💻 to Market Mechanics 🛠️"},{"url":"https://patrickjhess.github.io/Volume-Four-Chapter-Three/","title":"Chapters Three: Are Yields To Maturity Useful"},{"url":"https://patrickjhess.github.io/Volume-Four-Chapter-Four/","title":"Chapters Four:  📈 Interest Rate Risk: From Static Metrics to Dynamic Simulation"}],"title":"Other Chapters Of The Volume"}],"exports":[],"bibliography":[],"index":"index","pages":[{"level":1,"title":"Getting Started"},{"level":1,"title":"Chapter Two: 📈 Visualizing the Concepts and Applying the Model: Arbitrage and the Cost of Carry ⚙️"},{"slug":"uncertainty-arbitrage","title":"⚖️ Conceptualizing Pricing: The Transmission of Uncertainty and the Power of Arbitrage","short_title":"🔐⚖️ Conceptualizing Pricing: The Transmission of Uncertainty and the Power of Arbitrage","description":"","date":"","thumbnail":"/Derivatives-Futures-Chapter-Two//build/7e2db436150c38a00650f96925aa5581.svg","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"pricing","title":"👁️‍🗨️ From Visualization to Calculation: Applying the Cost of Carry Model ⚖️","description":"","date":"","thumbnail":"/Derivatives-Futures-Chapter-Two//build/7e2db436150c38a00650f96925aa5581.svg","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"chapter-summary","title":"📝 Chapter Summary","short_title":"📝 Chapter Summary","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"imported-functions","title":"Imported Functions","short_title":"Imported Functions","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"level":1,"title":"Other Chapters Of The Volume"},{"title":"Chapter One: Mastering Futures Markets 💹: From Data Sourcing 💻 to Market Mechanics 🛠️","url":"https://patrickjhess.github.io/Volume-Four-Chapter-One/","level":2},{"title":"Chapters Three: Are Yields To Maturity Useful","url":"https://patrickjhess.github.io/Volume-Four-Chapter-Three/","level":2},{"title":"Chapters Four:  📈 Interest Rate Risk: From Static Metrics to Dynamic Simulation","url":"https://patrickjhess.github.io/Volume-Four-Chapter-Four/","level":2}]}]},"page":{"version":3,"kind":"Article","sha256":"8ae786b2cc4d6e589be33cf16147861401407070a75bd40402cbe5aa1d50479e","slug":"imported-functions","location":"/imported_functions.md","dependencies":[],"frontmatter":{"title":"Imported Functions","content_includes_title":false,"authors":[{"nameParsed":{"literal":"Financial Python","given":"Financial","family":"Python"},"name":"Financial Python","id":"contributors-myst-generated-uid-0"}],"github":"https://github.com/PatrickJHess/Derivatives-Futures-Chapter-Two","copyright":"2025 by the University of Virginia Darden School Foundation, Charlottesville, VA.","numbering":{"title":{"offset":1}},"source_url":"https://github.com/PatrickJHess/Derivatives-Futures-Chapter-Two/blob/main/imported_functions.md","edit_url":"https://github.com/PatrickJHess/Derivatives-Futures-Chapter-Two/edit/main/imported_functions.md","exports":[{"format":"md","filename":"imported_functions.md","url":"/Derivatives-Futures-Chapter-Two//build/imported_functions-86fc0c4e23fa8d3094ac5407939d9444.md"}]},"mdast":{"type":"root","children":[{"type":"block","children":[{"type":"details","children":[{"type":"summary","children":[{"type":"text","value":"Click to see ","position":{"start":{"line":6,"column":1},"end":{"line":6,"column":1}},"key":"RxuuzuhDFe"},{"type":"inlineCode","value":"MASSIVEReader","position":{"start":{"line":6,"column":1},"end":{"line":6,"column":1}},"key":"ubQtGZpL3A"}],"key":"UfInK5J0Ka"},{"type":"code","lang":"py","value":"import os\nimport time\nimport json\nimport requests\nimport pandas as pd\nimport pandas_market_calendars as mcal\nfrom .massive_base import MassiveBase\n\n\nclass MASSIVEReader(MassiveBase):\n    def __init__(self, api_key: str = None, key_name: str = \"\", calls_per_minute: int = 4):\n        super().__init__(api_key=api_key, key_name=key_name, calls_per_minute=calls_per_minute)\n        \n        # 📅 Initialize market calendars once for the whole class\n        self.cme_cal = mcal.get_calendar('CME_TradeDate')   # For Futures\n        self.nyse_cal = mcal.get_calendar('NYSE') # For Stocks\n\n    def _align_trade_dates(self, start_date: str, end_date: str, market: str = \"CME\") -\u003e tuple:\n        \"\"\"\n        Universal calendar logic to snap weekends and holidays to valid trade dates.\n        Prevents phantom cache misses and needless API calls.\n        \"\"\"\n        cal = self.cme_cal if market == \"CME\" else self.nyse_cal\n        \n        # Snap start date FORWARD to the next valid trading day\n        valid_starts = cal.valid_days(start_date, pd.to_datetime(start_date) + pd.Timedelta(days=15))\n        aligned_start = valid_starts[0].strftime('%Y-%m-%d')\n        \n        # Snap end date BACKWARD to the most recent valid trading day\n        # 1. Convert input to pandas Timestamp and drop time component\n        end_dt = pd.to_datetime(end_date).normalize()\n        today = pd.Timestamp.today().normalize()\n    \n        # 2. Cap at today first (prevents querying future schedule data)\n        capped_end_dt = min(end_dt, today)\n        \n        # 3. Query calendar using capped_end_dt\n        valid_ends = cal.valid_days(capped_end_dt - pd.Timedelta(days=15), capped_end_dt)\n        aligned_end = valid_ends[-1].strftime('%Y-%m-%d')\n        \n        return aligned_start, aligned_end\n\n    def _execute_with_cache(self, fetch_callback, ticker, start_date, end_date, resolution):\n        \"\"\"\n        Universal caching engine driven directly by the CSV file contents.\n        Loads existing data first, checks the date index, and dynamically fetches\n        only the missing blocks before or after the cached range.\n        \"\"\"\n        safe_ticker = ticker.replace(\":\", \"_\")\n        filepath = os.path.join(self.cache_dir, f\"{safe_ticker}_{resolution}_data.csv\")\n        \n        # 1. LOAD THE EXISTING CACHE (The Single Source of Truth)\n        if os.path.exists(filepath):\n            try:\n                df = pd.read_csv(filepath, index_col=0)\n                df.index = pd.to_datetime(df.index, errors='coerce', utc=True)\n                df = df[df.index.notnull()]\n                if getattr(df.index, 'tz', None) is not None:\n                    df.index = df.index.tz_localize(None)\n                df = df.sort_index()\n            except Exception:\n                # If the CSV is corrupt, pretend it doesn't exist to force a fresh pull\n                df = pd.DataFrame()\n        else:\n            df = pd.DataFrame()\n\n        # 2. CALCULATE MISSING DELTAS\n        fetch_ranges = []\n        \n        if df.empty:\n            # We have nothing; fetch the whole requested window\n            fetch_ranges.append((start_date, end_date))\n        else:\n            req_start = pd.to_datetime(start_date)\n            req_end = pd.to_datetime(end_date)\n            c_start = pd.to_datetime(df.index.min().strftime('%Y-%m-%d'))\n            c_end = pd.to_datetime(df.index.max().strftime('%Y-%m-%d'))\n            \n            # Check for missing data BEFORE our cache\n            if req_start \u003c c_start:\n                # Shift 1 day back to avoid re-downloading c_start\n                fetch_end = (c_start - pd.Timedelta(days=1)).strftime('%Y-%m-%d')\n                fetch_ranges.append((start_date, fetch_end))\n            \n            # Check for missing data AFTER our cache\n            if req_end \u003e c_end:\n                # Shift 1 day forward to avoid re-downloading c_end\n                fetch_start = (c_end + pd.Timedelta(days=1)).strftime('%Y-%m-%d')\n                \n                # GUARDRAIL: Only fetch if there is at least one business day in the gap.\n                missing_bdays = len(pd.bdate_range(start=fetch_start, end=end_date))\n                \n                if missing_bdays \u003e 0:\n                    fetch_ranges.append((fetch_start, end_date))\n                else:\n                    print(f\"✅ Gap ({fetch_start} to {end_date}) contains no trading days. Skipping API call.\")\n\n        # 3. IF NO DELTAS, WE HAVE A FULL CACHE HIT\n        if not fetch_ranges:\n            print(f\"⚡ Full cache hit for {ticker} ({resolution}). Loaded directly from CSV.\")\n            return df.loc[start_date:end_date]\n\n        # 4. FETCH ONLY THE MISSING PIECES\n        df_list = [df] if not df.empty else []\n        \n        for f_start, f_end in fetch_ranges:\n            print(f\"☁️ Downloading {ticker} ({resolution}) via API from {f_start} to {f_end}...\")\n            self._enforce_speed_limit()\n\n            try:\n                new_data = fetch_callback(f_start, f_end)\n                if new_data is not None and not new_data.empty:\n                    df_list.append(new_data)\n                    \n            except Exception as e:\n                if \"429\" in str(e):\n                    print(f\"\\n🚨 SDK Server Crash! The API forcefully rejected {ticker}.\")\n                    print(\"😴 Forcing a hard 65-second server-reset penalty...\")\n                    time.sleep(65)\n                    print(f\"🔄 Attempting {ticker} one final time...\")\n                    return self._execute_with_cache(fetch_callback, ticker, start_date, end_date, resolution)\n                else:\n                    print(f\"❌ Connection or Parsing error: {e}\")\n                    return None\n\n        # 5. MERGE, CLEAN, AND SAVE\n        if len(df_list) == (1 if not df.empty else 0):\n            print(f\"⚠️ API returned no new data for requested ranges.\")\n            return df.loc[start_date:end_date] if not df.empty else None\n\n        combined_df = pd.concat(df_list).drop_duplicates().sort_index()\n        \n        # Clean up any duplicated dates safely before saving\n        combined_df = combined_df[~combined_df.index.duplicated(keep='last')]\n        combined_df.to_csv(filepath)\n\n        true_start = combined_df.index.min().strftime('%Y-%m-%d')\n        true_end = combined_df.index.max().strftime('%Y-%m-%d')\n        print(f\"💾 Merged and saved {ticker} to cache. (Total Coverage: {true_start} to {true_end})\")\n\n        return combined_df.loc[start_date:end_date]\n\n\n    # =========================================================================\n    # STOCKS \u0026 EQUITIES PROVIDER METHODS\n    # =========================================================================\n    def get_stock_data(self, ticker: str, start_date: str, end_date: str, timespan: str = \"day\", multiplier: int = 1) -\u003e pd.DataFrame:\n        # 🛡️ Clean the dates before anything else!\n        if timespan.lower() in [\"day\", \"daily\", \"session\"]:\n            start_date, end_date = self._align_trade_dates(start_date, end_date, market=\"NYSE\")\n\n        print(f\"📈 Fetching stock data for {ticker} ({multiplier} {timespan})...\")\n\n        def _fetch(f_start, f_end):\n            aggs = self.client.get_aggs(\n                ticker=ticker,\n                multiplier=multiplier,\n                timespan=timespan,\n                limit=50000,\n                from_=f_start,\n                to=f_end\n            )\n            df = pd.DataFrame(aggs)\n            if not df.empty:\n                df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms')\n                df.set_index('timestamp', inplace=True)\n                df.index = df.index.tz_localize('UTC').tz_convert('America/New_York').tz_localize(None)\n            return df\n\n        resolution_label = f\"{multiplier}_{timespan}\"\n\n        return self._execute_with_cache(\n            fetch_callback=_fetch,\n            ticker=ticker,\n            start_date=start_date,\n            end_date=end_date,\n            resolution=resolution_label\n        )\n\n\n    # =========================================================================\n    # DIVIDENDS PROVIDER METHOD\n    # =========================================================================\n    def get_dividend_data(self, ticker: str, start_date: str = \"1970-01-01\", end_date: str = \"2099-12-31\") -\u003e pd.DataFrame:\n        print(f\"💰 Fetching dividend data for {ticker}...\")\n\n        def _fetch(f_start, f_end):\n            url = \"https://api.massive.com/stocks/v1/dividends\"\n            params = {\n                \"ticker\": ticker,\n                \"limit\": 1000, \n                \"sort\": \"ex_dividend_date.asc\",\n                \"apiKey\": self.api_key\n            }\n\n            response = requests.get(url, params=params)\n            response.raise_for_status()\n\n            data = response.json()\n            df = pd.DataFrame(data.get(\"results\", []))\n\n            if not df.empty:\n                time_col = 'ex_dividend_date'\n                if time_col in df.columns:\n                    df[time_col] = pd.to_datetime(df[time_col])\n                    df.set_index(time_col, inplace=True)\n                    df.index = df.index.normalize()\n            return df\n\n        return self._execute_with_cache(\n            fetch_callback=_fetch,\n            ticker=ticker,\n            start_date=start_date,\n            end_date=end_date,\n            resolution=\"dividends\"\n        )\n\n\n    # =========================================================================\n    # FUTURES PROVIDER METHODS\n    # =========================================================================\n    def get_futures_data(self, contract_symbol: str, start_date: str, end_date: str, timespan: str = \"day\", multiplier: int = 1) -\u003e pd.DataFrame:\n        is_daily_resolution = timespan.lower() in [\"day\", \"daily\", \"session\"]\n        \n        # 🛡️ Clean the dates before anything else!\n        if is_daily_resolution:\n            start_date, end_date = self._align_trade_dates(start_date, end_date, market=\"CME\")\n\n        print(f\"🚀 Fetching futures data for {contract_symbol} ({multiplier} {timespan})...\")\n\n        def _fetch(f_start, f_end):\n            url = f\"https://api.massive.com/futures/v1/aggs/{contract_symbol}\"\n            \n            # 1. Apply start-date shift ONLY to daily/session data\n            if is_daily_resolution:\n                massive_timespan = \"session\"\n                api_start = (pd.to_datetime(f_start) - pd.Timedelta(days=1)).strftime('%Y-%m-%d')\n            else:\n                 massive_timespan = \"min\" if timespan.lower() == \"minute\" else timespan.lower()\n                 # Intraday bars (1_min, 5_min, 60_min) keep exact start boundary\n                 api_start = f_start\n\n            # Guaranteed end-date buffer for both resolutions\n            api_end = (pd.to_datetime(f_end) + pd.Timedelta(days=1)).strftime('%Y-%m-%d')\n            resolution_string = f\"{multiplier}{massive_timespan}\"\n\n            params = {\n                \"resolution\": resolution_string,\n                \"window_start.gte\": api_start,\n                \"window_start.lte\": api_end,\n                \"limit\": 50000,\n                \"sort\": \"window_start.asc\",\n                \"apiKey\": self.api_key\n            }\n\n            response = requests.get(url, params=params)\n            response.raise_for_status()\n\n            data = response.json()\n            df = pd.DataFrame(data.get(\"results\", []))\n\n            if not df.empty:\n                time_col = 'timestamp' if 'timestamp' in df.columns else ('window_start' if 'window_start' in df.columns else 't')\n\n                try:\n                    df[time_col] = pd.to_datetime(df[time_col], unit='ns')\n                except ValueError:\n                    df[time_col] = pd.to_datetime(df[time_col])\n\n                df.set_index(time_col, inplace=True)\n\n                # 2. Map evening window_start times (18:00) to the Trade Date ONLY for daily bars\n                if timespan in ['day', 'week', 'month', 'session']:\n                    # Massive API stamps daily futures bars at session open (the evening before).\n                    # Shift all daily/session timestamps forward 1 day to match the Trade Date. \n                    df.index = (df.index + pd.Timedelta(days=1)).normalize()\n                else:\n                    if getattr(df.index, 'tz', None) is None:\n                        df.index = df.index.tz_localize('UTC')\n                    df.index = df.index.tz_convert('America/New_York').tz_localize(None)\n            \n            df = df.rename(columns={'ticker':'Symbol'})\n            return df\n\n        resolution_label = f\"{multiplier}_{timespan}\"\n\n        return self._execute_with_cache(\n            fetch_callback=_fetch,\n            ticker=contract_symbol,\n            start_date=start_date,\n            end_date=end_date,\n            resolution=resolution_label\n        )","position":{"start":{"line":8,"column":1},"end":{"line":302,"column":1}},"key":"jsglEuLiVv"}],"key":"Jh2yt6zo1g"},{"type":"details","children":[{"type":"summary","children":[{"type":"text","value":"Click to see ","position":{"start":{"line":305,"column":1},"end":{"line":305,"column":1}},"key":"hHvhWfvH8g"},{"type":"inlineCode","value":"FredReader","position":{"start":{"line":305,"column":1},"end":{"line":305,"column":1}},"key":"rIbVpZuqRw"}],"key":"Q8F7IFBvEZ"},{"type":"code","lang":"py","value":"import json\nimport os\nimport requests\nimport pandas as pd\nimport datetime as dt\nimport pandas_datareader.data as web\nfrom .fred_base import FredBase\nfrom financial_quant.security.credentials import secure_key_setup\n\nclass FredReader(FredBase):\n\n    def __init__(\n        self,\n        api_key=None,\n        key_name=\"fred_key\",\n        github_raw_base=None,\n        cache_dir=None,\n        enable_github_repo=False,  # \u003c-- Staging flag: Set to False for now\n    ):\n        super(FredReader, self).__init__(api_key=api_key, key_name=key_name)\n        if cache_dir:\n            self.cache_dir = cache_dir\n\n        self.github_raw_base = (\n            github_raw_base.rstrip(\"/\") if github_raw_base else None\n        )\n        self.enable_github_repo = enable_github_repo\n\n    # --- PUBLIC WRAPPER METHOD ---\n    def get_series(\n        self, series_ids, start_date=None, end_date=None, ttl_days=7\n    ):\n        \"\"\"Fetches one or more series and returns them in a single merged DataFrame.\"\"\"\n        if isinstance(series_ids, str):\n            series_ids = [series_ids]\n        elif not hasattr(series_ids, \"__iter__\"):\n            raise TypeError(\n                \"series_ids must be a string or an iterable of strings.\"\n            )\n\n        dataframes = []\n\n        for series_id in series_ids:\n            print(f\"\\n☁️--- Processing {series_id} ---\")\n            df = self._get_single_series(\n                series_id,\n                start_date=start_date,\n                end_date=end_date,\n                ttl_days=ttl_days,\n            )\n            if df is not None and not df.empty:\n                dataframes.append(df)\n            else:\n                print(f\"⚠️ Skipping {series_id}: No data was returned.\")\n\n        if dataframes:\n            if len(dataframes) == 1:\n                return dataframes[0]\n            print(\"\\n🧩 Merging all series into a single DataFrame...\")\n            combined_df = pd.concat(dataframes, axis=1, join=\"outer\")\n            combined_df.sort_index(inplace=True)\n            print(\"✅ Merge complete!\")\n            return combined_df\n        else:\n            print(\"❌ No data could be retrieved.\")\n            return None\n\n    # --- CORE WORKHORSE METHOD ---\n    def _get_single_series(\n        self, series_id, start_date=None, end_date=None, ttl_days=7\n    ):\n        # Local Parquet \u0026 Metadata Paths\n        filepath = os.path.abspath(\n            os.path.join(self.cache_dir, f\"{series_id}_fred.parquet\")\n        )\n        metadata_file = os.path.abspath(\n            os.path.join(self.cache_dir, f\"{series_id}_metadata.json\")\n        )\n\n        metadata = {}\n        metadata_is_stale = True\n        metadata_updated_this_run = False\n\n        # --- NESTED METADATA HELPER ---\n        def update_metadata():\n            nonlocal metadata, metadata_updated_this_run\n            if not self.api_key:\n                return True\n\n            meta_url = f\"https://api.stlouisfed.org/fred/series?series_id={series_id}\u0026api_key={self.api_key}\u0026file_type=json\"\n            try:\n                meta_data = self._make_api_request(\n                    meta_url, series_id=series_id\n                )\n                if not meta_data or \"seriess\" not in meta_data:\n                    return False\n\n                if len(meta_data[\"seriess\"]) \u003e 0:\n                    series_info = meta_data[\"seriess\"][0]\n                    metadata[\"series_inception\"] = series_info.get(\n                        \"observation_start\"\n                    )\n                    metadata[\"series_last_observed\"] = series_info.get(\n                        \"observation_end\"\n                    )\n                    metadata[\"title\"] = series_info.get(\"title\")\n                    metadata[\"frequency\"] = series_info.get(\"frequency\")\n                    metadata[\"last_updated\"] = dt.datetime.now(\n                        dt.timezone.utc\n                    ).isoformat()\n\n                    os.makedirs(self.cache_dir, exist_ok=True)\n                    with open(metadata_file, \"w\") as f:\n                        json.dump(metadata, f, indent=4)\n\n                    metadata_updated_this_run = True\n                    print(\"⏳ Metadata synced and timestamp updated.\")\n                    return True\n            except Exception as e:\n                print(f\"⚠️ Could not update metadata: {e}\")\n                return False\n\n        # --- 1. READ LOCAL METADATA ---\n        if os.path.exists(metadata_file):\n            try:\n                with open(metadata_file, \"r\") as f:\n                    metadata = json.load(f)\n            except (json.JSONDecodeError, ValueError):\n                print(\n                    f\"⚠️ Warning: Corrupt metadata for {series_id}. Resetting...\"\n                )\n                metadata = {}\n                try:\n                    os.remove(metadata_file)\n                except Exception:\n                    pass\n\n            if \"last_updated\" in metadata:\n                last_updated = dt.datetime.fromisoformat(\n                    metadata[\"last_updated\"]\n                )\n                if last_updated.tzinfo is None:\n                    last_updated = last_updated.replace(tzinfo=dt.timezone.utc)\n\n                days_old = (\n                    dt.datetime.now(dt.timezone.utc) - last_updated\n                ).days\n                if days_old \u003c ttl_days:\n                    metadata_is_stale = False\n                    print(f\"🕒 Metadata is fresh ({days_old} days old).\")\n                else:\n                    print(\n                        f\"⏳ Metadata is {days_old} days old (TTL: {ttl_days}). It's stale.\"\n                    )\n\n        # --- 2. SMART PING ---\n        if not metadata:\n            print(f\"🆕 First run for {series_id}. Initializing metadata...\")\n            update_metadata()\n        elif (\n            self.api_key\n            and end_date\n            and \"series_last_observed\" in metadata\n            and metadata_is_stale\n        ):\n            if pd.to_datetime(end_date) \u003e pd.to_datetime(\n                metadata[\"series_last_observed\"]\n            ):\n                print(\n                    \"🔎 Requested date exceeds known end date. Checking for updates...\"\n                )\n                update_metadata()\n\n        # --- 3. CLAMP DATES ---\n        if \"series_inception\" in metadata and start_date:\n            clamped_start = max(\n                pd.to_datetime(start_date),\n                pd.to_datetime(metadata[\"series_inception\"]),\n            )\n            if pd.to_datetime(start_date) \u003c clamped_start:\n                start_date = clamped_start.strftime(\"%Y-%m-%d\")\n                print(\n                    f\"⚠️ Adjusted start date to First Available Data: {start_date}\"\n                )\n\n        if \"series_last_observed\" in metadata and end_date:\n            clamped_end = min(\n                pd.to_datetime(end_date),\n                pd.to_datetime(metadata[\"series_last_observed\"]),\n            )\n            if pd.to_datetime(end_date) \u003e clamped_end:\n                end_date = clamped_end.strftime(\"%Y-%m-%d\")\n                print(\n                    f\"⚠️ FRED has no data past {end_date}. Adjusted request to match.\"\n                )\n\n        # --- 4. CHECK LOCAL CACHE (PARQUET) ---\n        if os.path.exists(filepath) and not metadata_is_stale:\n            try:\n                df = pd.read_parquet(filepath)\n                cache_start, cache_end = df.index.min(), df.index.max()\n\n                valid_start = not (\n                    start_date\n                    and pd.to_datetime(start_date)\n                    \u003c cache_start - pd.Timedelta(days=5)\n                )\n                valid_end = not (\n                    end_date and pd.to_datetime(end_date) \u003e cache_end\n                )\n\n                if valid_start and valid_end:\n                    print(f\"✅ Loaded {series_id} from local Parquet cache.\")\n                    if start_date:\n                        df = df[df.index \u003e= pd.to_datetime(start_date)]\n                    if end_date:\n                        df = df[df.index \u003c= pd.to_datetime(end_date)]\n                    return df\n            except Exception as e:\n                print(\n                    f\"⚠️ Local cache corrupt or unreadable: {e}. Moving to next tier...\"\n                )\n\n        # --- 5. CHECK GITHUB STATIC DATA REPO TIER ---\n        if self.enable_github_repo and self.github_raw_base:\n            github_url = f\"{self.github_raw_base}/{series_id}_fred.parquet\"\n            print(f\"🌐 [Staged Tier] Checking GitHub Data Repo: {github_url}...\")\n            try:\n                # Attempt to stream parquet directly from GitHub\n                df = pd.read_parquet(github_url)\n                print(\n                    f\"✅ Found {series_id} in GitHub Repo! Caching locally...\"\n                )\n\n                # Save directly to environment cache\n                os.makedirs(self.cache_dir, exist_ok=True)\n                df.to_parquet(filepath)\n\n                if start_date:\n                    df = df[df.index \u003e= pd.to_datetime(start_date)]\n                if end_date:\n                    df = df[df.index \u003c= pd.to_datetime(end_date)]\n                return df\n\n            except Exception as e:\n                # Controlled exception catching during staging\n                print(\n                    f\"ℹ️ GitHub Repo lookup bypassed/failed ({e}). Proceeding to API tier...\"\n                )\n        else:\n            print(\" Skipping GitHub static repo check (Tier disabled).\")\n\n        # --- 6. API FETCH (FRED / WEB) ---\n# --- TIER 3: LIVE API FETCH ---\n        print(f\"☁️ Fetching fresh {series_id} observations from API...\")\n        try:\n            if self.api_key is None:\n                df = web.DataReader(\n                    series_id, \"fred\", start=start_date, end=end_date\n                )\n            else:\n                url = f\"https://api.stlouisfed.org/fred/series/observations?series_id={series_id}\u0026api_key={self.api_key}\u0026file_type=json\"\n                if start_date:\n                    url += f\"\u0026observation_start={start_date}\"\n                if end_date:\n                    url += f\"\u0026observation_end={end_date}\"\n\n                data = self._make_api_request(url)\n                if not data or \"observations\" not in data:\n                    return None\n\n                df = pd.DataFrame(data[\"observations\"])\n                df[\"DATE\"] = pd.to_datetime(df[\"date\"])\n                df[series_id] = pd.to_numeric(df[\"value\"], errors=\"coerce\")\n                df = df.set_index(\"DATE\")\n                df = df[[series_id]]\n\n            df.dropna(inplace=True)\n\n            # Save newly fetched API data to local Parquet cache\n            os.makedirs(self.cache_dir, exist_ok=True)\n            df.to_parquet(filepath)\n            print(f\"Success! Saved fresh Parquet data to {filepath}.\")\n            return df\n\n        except Exception as e:\n            print(f\"❌ An error occurred in API fetch: {e}\")\n            return None","position":{"start":{"line":307,"column":1},"end":{"line":596,"column":1}},"key":"FOA5yqpOqj"}],"key":"VJRgyxciFr"},{"type":"details","children":[{"type":"summary","children":[{"type":"text","value":"Click to see ","position":{"start":{"line":598,"column":1},"end":{"line":598,"column":1}},"key":"jAPbCRZDhq"},{"type":"inlineCode","value":"static_futures_data","position":{"start":{"line":598,"column":1},"end":{"line":598,"column":1}},"key":"TzyqmcThu3"}],"key":"beNw0IQsdg"},{"type":"code","lang":"py","value":"import sys\nimport requests\nimport time\nimport pandas as pd\nfrom io import BytesIO\nfrom pathlib import Path\n\n# 1. Define repo configuration\nGITHUB_RAW_BASE_URL = \"https://raw.githubusercontent.com/PatrickJHess/Static_Data_Repo/main/Futures\"\n\n# 2. Environment-Aware Cache Routing with Google Drive\nif 'google.colab' in sys.modules:\n    from google.colab import drive\n    # Mount Google Drive (will prompt for authorization if not already mounted)\n    drive.mount('/content/drive')\n    # Route cache to persistent Google Drive folder\n    DEFAULT_CACHE_DIR = Path(\"/content/drive/MyDrive/Futures_Static\")\nelse:\n    # Use standard local directory for Jupyter/VSCode\n    DEFAULT_CACHE_DIR = Path.cwd() / \"cache\" / \"Futures_Static\"\n\ndef static_futures_data(file_name, cache_dir=DEFAULT_CACHE_DIR, force_update=False, cache_ttl_hours=24):\n    \n    # 3. Standardize Parquet Filename and cache\n    filename = f\"{file_name}.parquet\"\n    # Ensure local cache folder exists\n    cache_path = Path(cache_dir)\n    cache_path.mkdir(parents=True, exist_ok=True)\n    file_path = cache_path / filename\n\n    # 4. Check how old the cache file is (if it exists)\n    is_cache_stale = False\n    if file_path.exists():\n        # Last modification time number of seconds elapsed since the Unix epoch)\n        file_age_seconds = time.time() - file_path.stat().st_mtime\n\n        # Check if ttl is past due\n        if file_age_seconds \u003e (cache_ttl_hours * 3600):\n            is_cache_stale = True\n\n    # 5. Tier 1: Load Local Cache (If exists, not forced, and not stale)\n    if file_path.exists() and not force_update and not is_cache_stale:\n        print(f\"Loading Parquet data from local cache: {filename}\")\n        return pd.read_parquet(file_path).set_index('Date')\n\n    # 6. Tier 2: Cache is stale or forced update from github repo\n    else:\n        # Determine the reason for logging\n        if force_update:\n            reason = \"Force update requested\"\n        elif is_cache_stale:\n            reason = f\"Cache older than {cache_ttl_hours} hours\"\n        else:\n            reason = \"Not found in cache\"\n\n        print(f\"Fetching Parquet data from GitHub ({reason}): {filename}\")\n\n        github_url = f\"{GITHUB_RAW_BASE_URL}/{filename}\"\n        try:\n            response = requests.get(github_url, timeout=10)\n            response.raise_for_status()\n\n            # Read into Pandas\n            df = pd.read_parquet(BytesIO(response.content))\n\n            # Save fresh copy to cache (this automatically resets the file's timestamp)\n            df.to_parquet(file_path, index=False)\n\n            # Set index and return\n            return df.set_index('Date')\n\n        except Exception as e:\n            print(f\"Error loading Parquet data: {e}\")\n            # Fallback: if GitHub fails but we have a stale cache, use it anyway\n            if file_path.exists():\n                print(\"Falling back to stale local cache due to download error.\")\n                return pd.read_parquet(file_path).set_index('Date')\n            return None","position":{"start":{"line":600,"column":1},"end":{"line":679,"column":1}},"key":"OufOx4dJ0D"}],"key":"jaSjZlMzoO"},{"type":"details","children":[{"type":"summary","children":[{"type":"text","value":"Click to see ","position":{"start":{"line":681,"column":1},"end":{"line":681,"column":1}},"key":"y4pgM91IRh"},{"type":"inlineCode","value":"graph_uncertainty_arb","position":{"start":{"line":681,"column":1},"end":{"line":681,"column":1}},"key":"l1UJb3c2Ej"}],"key":"VrXtmYs9J3"},{"type":"code","lang":"py","value":"mport os\nimport sys\nimport re\nimport pandas as pd\nimport numpy as np\nfrom pathvalidate import sanitize_filepath\nfrom matplotlib import pyplot as plt\nimport openpyxl\nfrom openpyxl.utils import get_column_letter\nfrom IPython.display import display, Markdown as md\nfrom pathlib import Path\nimport altair as alt\ndef graph_uncertainty_arb(df_list, asset):\n    \"\"\"\n    Generates a 2-tier dashboard:\n    Top Row: Static side-by-side Volume and Closing Price charts.\n    Bottom Row: Interactive Overview/Detail chart explicitly for Closing Price.\n    \"\"\"\n    # 1. Prepare the combined dataset\n    df_combined = pd.concat(df_list).reset_index(names='date')\n\n    price_domain = [df_combined['close'].min() * 0.9, df_combined['close'].max() * 1.1]\n    volume_domain = [df_combined['volume'].min() * 0.9, df_combined['volume'].max() * 1.1]\n\n    # Shared base chart ensures both rows get the legend by default\n    base_chart = alt.Chart(df_combined).mark_line().encode(\n        color=alt.Color('symbol:N', legend=alt.Legend(title=\"Symbol\"))\n    )\n\n    # --- TOP ROW: Static Side-by-Side ---\n    volume_chart = base_chart.encode(\n        x=alt.X('date:T', title='Date'),\n        y=alt.Y('volume:Q', title='Volume', scale=alt.Scale(domain=volume_domain))\n    ).properties(\n        width=300, height=350, title=f'{asset} Trading Volume - Full Timeline'\n    )\n\n    price_chart = base_chart.encode(\n        x=alt.X('date:T', title='Date'),\n        y=alt.Y('close:Q', title='Price', scale=alt.Scale(domain=price_domain))\n    ).properties(\n        width=300, height=350, title=f'{asset} Closing Prices - Arb Effect'\n    )\n\n    top_row = volume_chart | price_chart\n\n\n    # --- BOTTOM ROW: Interactive Arb Effect (Price Only) ---\n    brush = alt.selection_interval(encodings=['x'])\n\n    price_base = base_chart.encode(\n        y=alt.Y('close:Q', title='Price', scale=alt.Scale(domain=price_domain))\n    )\n\n    # Upper Detailed Price Chart (Keeps the legend from base_chart)\n    price_upper = price_base.encode(\n        x=alt.X('date:T', scale=alt.Scale(domain=brush), title='')\n    ).properties(\n        width=650, height=260, title=f'Interactive Detail: {asset} Arb Effect'\n    )\n\n    # Lower Overview Price Chart (Legend explicitly hidden)\n    price_lower = price_base.encode(\n        x=alt.X('date:T', title='Date (Drag to Zoom)'),\n        color=alt.Color('symbol:N', legend=None) \n    ).properties(\n        width=650, height=150\n    ).add_params(\n        brush\n    )\n\n    bottom_row = price_upper \u0026 price_lower\n\n\n    # --- FINAL DASHBOARD COMBINATION ---\n    # We resolve the legend independently so Altair doesn't try to force \n    # the top row and bottom row to share a single, awkwardly placed legend.\n    final_dashboard = (top_row \u0026 bottom_row).resolve_legend(\n        color=\"independent\"\n    )\n\n    return final_dashboard","position":{"start":{"line":683,"column":1},"end":{"line":766,"column":1}},"key":"beaSWtMd1W"}],"key":"znx4YpSzaB"},{"type":"details","children":[{"type":"summary","children":[{"type":"text","value":"Click to see ","position":{"start":{"line":768,"column":1},"end":{"line":768,"column":1}},"key":"FJT2EF1Y1l"},{"type":"inlineCode","value":"one_y_axis","position":{"start":{"line":768,"column":1},"end":{"line":768,"column":1}},"key":"Z9QUctIgDJ"}],"key":"qpVlScGWp0"},{"type":"code","lang":"py","value":"import os\nimport sys\nimport re\nimport pandas as pd\nimport numpy as np\nfrom pathvalidate import sanitize_filepath\nfrom matplotlib import pyplot as plt\nimport openpyxl\nfrom openpyxl.utils import get_column_letter\nfrom IPython.display import display, Markdown as md\nfrom pathlib import Path\nimport altair as alt\ndef one_y_axis(x_data, y_data_list, title=\"\", xlabel=\"\", ylabel=\"\", \n                     series_labels=None, markers=None, colors=None,\n                     figure_size=(10, 6), y_limits=None, \n                     save_config=None, fill_config=None):\n    \"\"\"\n    Plots data on a single y-axis.\n\n    Args:\n        x_data (array-like): Data for the x-axis.\n        y_data_list (list of array-like): A list of datasets for the y-axis.\n        title (str): The title of the graph.\n        xlabel (str): The label for the x-axis.\n        ylabel (str): The label for the y-axis.\n        series_labels (list of str, optional): Identifiers for each data series. \n        markers (list of str, optional): The markers to use for each series.\n        colors (list of str, optional): Colors for each series.\n        figure_size (tuple): The width and height of the figure in inches.\n        y_limits (tuple, optional): The (min, max) values for the y-axis.\n        save_config (dict, optional): Config for saving the file. Keys: 'volume', 'chapter', 'file_name'.\n        fill_config (dict, optional): Config for filling areas. Keys: 'Between' (list of 1 or 2 indices),\n                                      'Start', 'End', 'Colors', 'Labels', 'Alpha'.\n    \"\"\"\n\n\n    num_series = len(y_data_list)\n\n    # --- Smart Defaults (Frictionless Inputs) ---\n    series_labels = series_labels or [f\"Series {i+1}\" for i in range(num_series)]\n    markers = markers or [\"\"] * num_series\n    colors = colors or plt.cm.viridis_r(np.linspace(0, 1, num_series))\n\n    # Input Validation\n    if not (len(series_labels) == len(markers) == len(colors) == num_series):\n        raise ValueError(\"Lengths of 'series_labels', 'markers', and 'colors' must match 'y_data_list'.\")\n\n    # --- Plotting Setup (Protects Global State) ---\n    with plt.style.context('ggplot'):\n        fig, ax = plt.subplots(figsize=figure_size)\n        fig.suptitle(title)\n\n        # --- Pythonic Loop ---\n        for y_data, label, marker, color in zip(y_data_list, series_labels, markers, colors):\n            ax.plot(x_data, y_data, label=label, marker=marker, color=color)\n\n        # --- Implement the Missing Fill Feature ---\n        if fill_config:\n            indices = fill_config.get('Between', [0])\n            y1 = y_data_list[indices[0]]\n            y2 = y_data_list[indices[1]] if len(indices) \u003e 1 else np.zeros_like(y1)\n            \n            start, end = fill_config.get('Start', 0), fill_config.get('End', len(x_data))\n            \n            ax.fill_between(\n                x_data[start:end], y1[start:end], y2[start:end],\n                color=fill_config.get('Colors', 'gray'),\n                alpha=fill_config.get('Alpha', 0.3),\n                label=fill_config.get('Labels', None)\n            )\n\n        # --- Final Touches ---\n        if y_limits:\n            ax.set_ylim(y_limits)\n        ax.set_xlabel(xlabel)\n        ax.set_ylabel(ylabel)\n        ax.legend()\n        plt.tight_layout()\n\n        # --- Save Figure ---\n        if save_config:\n            # Assuming save_results is imported/defined elsewhere in your script\n            path = save_results(save_config=save_config)\n            if path:\n                plt.savefig(path, dpi=300, bbox_inches='tight')\n\n        plt.show()","position":{"start":{"line":770,"column":1},"end":{"line":858,"column":1}},"key":"HYG5lzBkh2"}],"key":"HaEBJlURhC"}],"key":"YQE2b4qWlz"}],"key":"caVfef6fQC"},"references":{"cite":{"order":[],"data":{}}},"footer":{"navigation":{"prev":{"title":"📝 Chapter Summary","short_title":"📝 Chapter Summary","url":"/chapter-summary","group":"Chapter Two: 📈 Visualizing the Concepts and Applying the Model: Arbitrage and the Cost of Carry ⚙️"}}},"domain":"http://localhost:3000"},"project":{"downloads":[],"title":"\"📈 Visualizing the Concepts and Applying the Model: Arbitrage and the Cost of Carry ⚙️\"","authors":[{"nameParsed":{"literal":"Financial Python","given":"Financial","family":"Python"},"name":"Financial Python","id":"contributors-myst-generated-uid-0"}],"github":"https://github.com/PatrickJHess/Derivatives-Futures-Chapter-Two","copyright":"2025 by the University of Virginia Darden School Foundation, Charlottesville, VA.","parts":{"abstract":{"mdast":{"type":"root","children":[{"type":"block","data":{"part":"abstract"},"children":[{"type":"paragraph","position":{"start":{"line":1,"column":1},"end":{"line":1,"column":1}},"children":[{"type":"text","value":"Pricing Futures","position":{"start":{"line":1,"column":1},"end":{"line":1,"column":1}},"key":"fzBGYDVvHQ"}],"key":"Oqh8UyYoIO"}],"key":"dCKForIkDb"}],"key":"y9A1E0fV62"},"frontmatter":{"authors":[{"nameParsed":{"literal":"Financial Python","given":"Financial","family":"Python"},"name":"Financial Python","id":"contributors-myst-generated-uid-0"}],"github":"https://github.com/PatrickJHess/Derivatives-Futures-Chapter-Two","copyright":"2025 by the University of Virginia Darden School Foundation, Charlottesville, VA.","source_url":"https://github.com/PatrickJHess/Derivatives-Futures-Chapter-Two/blob/main/myst.yml#project.parts.abstract","edit_url":"https://github.com/PatrickJHess/Derivatives-Futures-Chapter-Two/edit/main/myst.yml#project.parts.abstract"}}},"thebe":{"binder":{"url":"https://mybinder.org/","provider":"github","repo":"PatrickJHess/Derivatives-Futures-Chapter-Two","ref":"master"}},"toc":[{"file":"intro.md","title":"Introduction"},{"children":[{"file":"shared_files_finpy/Interacting With Jupyter Books","title":"Interacting With Jupyter Books"}],"title":"Getting Started"},{"children":[{"file":"Chapter_One_Highlights.md","title":"✨ Chapter Highlights"},{"file":"notebooks/uncertainty_arbitrage.ipynb","title":"🔐⚖️ Conceptualizing Pricing: The Transmission of Uncertainty and the Power of Arbitrage"},{"file":"notebooks/pricing.ipynb"},{"file":"Chapter_Summary.md","title":"📝 Chapter Summary"},{"file":"imported_functions.md","title":"Imported Functions"}],"title":"Chapter Two: 📈 Visualizing the Concepts and Applying the Model: Arbitrage and the Cost of Carry ⚙️"},{"children":[{"url":"https://patrickjhess.github.io/Volume-Four-Chapter-One/","title":"Chapter One: Mastering Futures Markets 💹: From Data Sourcing 💻 to Market Mechanics 🛠️"},{"url":"https://patrickjhess.github.io/Volume-Four-Chapter-Three/","title":"Chapters Three: Are Yields To Maturity Useful"},{"url":"https://patrickjhess.github.io/Volume-Four-Chapter-Four/","title":"Chapters Four:  📈 Interest Rate Risk: From Static Metrics to Dynamic Simulation"}],"title":"Other Chapters Of The Volume"}],"exports":[],"bibliography":[],"index":"index","pages":[{"level":1,"title":"Getting Started"},{"level":1,"title":"Chapter Two: 📈 Visualizing the Concepts and Applying the Model: Arbitrage and the Cost of Carry ⚙️"},{"slug":"uncertainty-arbitrage","title":"⚖️ Conceptualizing Pricing: The Transmission of Uncertainty and the Power of Arbitrage","short_title":"🔐⚖️ Conceptualizing Pricing: The Transmission of Uncertainty and the Power of Arbitrage","description":"","date":"","thumbnail":"/Derivatives-Futures-Chapter-Two//build/7e2db436150c38a00650f96925aa5581.svg","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"pricing","title":"👁️‍🗨️ From Visualization to Calculation: Applying the Cost of Carry Model ⚖️","description":"","date":"","thumbnail":"/Derivatives-Futures-Chapter-Two//build/7e2db436150c38a00650f96925aa5581.svg","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"chapter-summary","title":"📝 Chapter Summary","short_title":"📝 Chapter Summary","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"slug":"imported-functions","title":"Imported Functions","short_title":"Imported Functions","description":"","date":"","thumbnail":"","thumbnailOptimized":"","banner":"","bannerOptimized":"","tags":[],"level":2},{"level":1,"title":"Other Chapters Of The Volume"},{"title":"Chapter One: Mastering Futures Markets 💹: From Data Sourcing 💻 to Market Mechanics 🛠️","url":"https://patrickjhess.github.io/Volume-Four-Chapter-One/","level":2},{"title":"Chapters Three: Are Yields To Maturity Useful","url":"https://patrickjhess.github.io/Volume-Four-Chapter-Three/","level":2},{"title":"Chapters Four:  📈 Interest Rate Risk: From Static Metrics to Dynamic Simulation","url":"https://patrickjhess.github.io/Volume-Four-Chapter-Four/","level":2}]}}},"actionData":null,"errors":null},"future":{"unstable_dev":false,"unstable_postcss":false,"unstable_tailwind":false,"v2_errorBoundary":true,"v2_headers":true,"v2_meta":true,"v2_normalizeFormMethod":true,"v2_routeConvention":true}};</script><script type="module" async="">import "/Derivatives-Futures-Chapter-Two//build/manifest-C732C875.js";
+import * as route0 from "/Derivatives-Futures-Chapter-Two//build/root-3VHQT63W.js";
+import * as route1 from "/Derivatives-Futures-Chapter-Two//build/routes/$-O2KOSX5W.js";
+window.__remixRouteModules = {"root":route0,"routes/$":route1};
+
+import("/Derivatives-Futures-Chapter-Two//build/entry.client-PCJPW7TK.js");</script></body></html>
