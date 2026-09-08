@@ -1,0 +1,76 @@
+version: 1
+project:
+  title: >-
+    "📈 Visualizing the Concepts and Applying the Model: Arbitrage and the Cost of Carry ⚙️"
+  abstract: |
+    Pricing Futures
+  github: PatrickJHess/Derivatives-Futures-Chapter-Two
+  copyright: >-
+    2025 by the University of Virginia Darden School Foundation,
+    Charlottesville, VA.
+  authors:
+    - name: Financial Python
+
+
+#  exports:
+#    - format: pdf
+#      template: lapreprint-typst
+#      output: book.pdf      # The filename it creates
+#      id: my_pdf_export     # The "name" of this specific job
+
+  downloads:
+    - id: my_pdf_export     # ONLY USE THE ID HERE
+      title: Download PDF
+  toc:
+    - title: Introduction
+      file: intro.md
+    - title: Getting Started
+      children:
+        - title: Interacting With Jupyter Books
+          file: shared_files_finpy/Interacting With Jupyter Books
+    - title: 'Chapter Two: 📈 Visualizing the Concepts and Applying the Model: Arbitrage and the Cost of Carry ⚙️'
+      children:
+        - title: ✨ Chapter Highlights
+          file: Chapter_One_Highlights.md
+        - title: '🔐⚖️ Conceptualizing Pricing: The Transmission of Uncertainty and the Power of Arbitrage'
+          file: notebooks/uncertainty_arbitrage.ipynb
+        - title:'👁️‍🗨️ From Visualization to Calculation: Applying the Cost of Carry Model ⚖️'
+          file: notebooks/pricing.ipynb
+        - title: 📝 Chapter Summary
+          file: Chapter_Summary.md
+        - title: Imported Functions
+          file: imported_functions.md
+    - title: Other Chapters Of The Volume
+      children:
+        - title: 'Chapter One: Mastering Futures Markets 💹: From Data Sourcing 💻 to Market Mechanics 🛠️'
+          url: https://patrickjhess.github.io/Volume-Four-Chapter-One/
+        - title: 'Chapters Three: Are Yields To Maturity Useful'
+          url: https://patrickjhess.github.io/Volume-Four-Chapter-Three/
+        - title: 'Chapters Four:  📈 Interest Rate Risk: From Static Metrics to Dynamic Simulation'
+          url: https://patrickjhess.github.io/Volume-Four-Chapter-Four/
+
+  jupyter:
+    binder:
+      repo: PatrickJHess/Derivatives-Futures-Chapter-Two
+      ref: master
+ 
+site:
+  template: book-theme
+  options:
+    repository: https://github.com/PatrickJHess/Derivatives-Futures-Chapter-Two
+    style: shared_files_finpy/static/custom.css
+    base_url: /Derivatives-Futures-Chapter-Two/
+    thebe: true  # This enables the engine
+    # The 'binder' block MUST be indented under 'options'
+    binder:
+      repo: PatrickJHess/Derivatives-Futures-Chapter-Two
+      ref: master
+      binderUrl: https://mybinder.org
+
+
+
+
+
+
+      
+
