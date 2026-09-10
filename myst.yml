@@ -43,7 +43,7 @@ project:
     - title: Other Chapters Of The Volume
       children:
         - title: 'Chapter One: Mastering Futures Markets 💹: From Data Sourcing 💻 to Market Mechanics 🛠️'
-          url: https://patrickjhess.github.io/Volume-Four-Chapter-One/
+          url: https://patrickjhess.github.io/Derivatives-Futures-Chapter-One/
         - title: 'Chapters Three: Are Yields To Maturity Useful'
           url: https://patrickjhess.github.io/Volume-Four-Chapter-Three/
         - title: 'Chapters Four:  📈 Interest Rate Risk: From Static Metrics to Dynamic Simulation'
