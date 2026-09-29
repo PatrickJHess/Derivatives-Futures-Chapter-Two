@@ -18,11 +18,11 @@
 
 This chapter is divided into four main sections:
 
-1. **⚖️ Conceptualizing Pricing: The Transmission of Uncertainty and the Power of Arbitrage** (Jupyter Notebook)
+1. **Conceptualizing Pricing: The Transmission of Uncertainty and the Power of Arbitrage** (Jupyter Notebook)
 
-2. **🔐👁️‍🗨️ From Visualization to Calculation: Applying the Cost of Carry Model ⚖️** (Jupyter Notebook)
+2. **From Visualization to Calculation: Applying the Cost of Carry Model** (Jupyter Notebook)
 
-3. **📝 Chapter Summary**
+3. **Chapter Summary**
 
-4. **📦 Imported Functions** (code reference)
+4. **Imported Functions** (code reference)
 
