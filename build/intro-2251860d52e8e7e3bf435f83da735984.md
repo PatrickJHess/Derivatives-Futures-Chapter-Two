@@ -1,6 +1,6 @@
 # Financial Python
 
-## **📚 Volume: Futures Markets**
+## 📚 Volume: Futures Markets
 
 ### 📈 Visualizing the Concepts and Applying the Model: Arbitrage and the Cost of Carry
 
