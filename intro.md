@@ -47,3 +47,8 @@ The second notebook focuses on the exact mechanics of getting from point A to po
 * **Interest:** The financing cost—tied to benchmark rates like SOFR—that compensates the seller for delayed payment.
   
 Although our goal is to demonstrate and not verify the cost of carry model, our analysis points to the limits of arbitrage. Just as Crude and Corn futures rely upon a physical infrastructure, the S&P 500 contract relies on a financial one—one built upon risk appetites, balance sheets, and the ability of prime brokers to adapt.
+
+:::{dropdown} 🪐 How to Interact with Jupyter Books (Click to Expand)
+
+```{include} jupyter_instructions.md
+:::

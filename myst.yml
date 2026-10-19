@@ -24,15 +24,11 @@ project:
   toc:
     - title: Introduction
       file: intro.md
-    - title: Getting Started
-      children:
-        - title: Interacting With Jupyter Books
-          file: shared_files_finpy/Interacting With Jupyter Books
     - title: 'Chapter Two: 📈 Visualizing the Concepts and Applying the Model: Arbitrage and the Cost of Carry ⚙️'
       children:
         - title: ✨ Chapter Highlights
           file: Chapter_One_Highlights.md
-        - title: '🔐⚖️ Conceptualizing Pricing: The Transmission of Uncertainty and the Power of Arbitrage'
+        - title: '🔐 Conceptualizing Pricing: The Transmission of Uncertainty and the Power of Arbitrage'
           file: notebooks/uncertainty_arbitrage.ipynb
         - title:'👁️‍🗨️ From Visualization to Calculation: Applying the Cost of Carry Model ⚖️'
           file: notebooks/pricing.ipynb
