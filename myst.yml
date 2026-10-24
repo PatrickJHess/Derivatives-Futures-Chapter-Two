@@ -40,11 +40,9 @@ project:
       children:
         - title: 'Chapter One: Mastering Futures Markets 💹: From Data Sourcing 💻 to Market Mechanics 🛠️'
           url: https://patrickjhess.github.io/Derivatives-Futures-Chapter-One/
-        - title: 'Chapters Three: Are Yields To Maturity Useful'
-          url: https://patrickjhess.github.io/Volume-Four-Chapter-Three/
-        - title: 'Chapters Four:  📈 Interest Rate Risk: From Static Metrics to Dynamic Simulation'
-          url: https://patrickjhess.github.io/Volume-Four-Chapter-Four/
-
+        - title: 'Chapters Three: 📊 Synthetic Portfolios and Benchmark Risk Spanning'
+          url: https://patrickjhess.github.io/Derivatives-Futures-Chapter-Three/
+ 
   jupyter:
     binder:
       repo: PatrickJHess/Derivatives-Futures-Chapter-Two
