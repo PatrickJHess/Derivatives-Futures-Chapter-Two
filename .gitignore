@@ -15,5 +15,8 @@ fred/
 jupyter_one/
 Chapters_Seven_Eight/
 notebooks/*.json
-
-
+FredReader.md
+MASSIVEReader.md
+one_y_axis.md
+static_futures_data.md
+graph_uncertainty_arb.md
