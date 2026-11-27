@@ -32,6 +32,8 @@ project:
           file: notebooks/uncertainty_arbitrage.ipynb
         - title:'👁️‍🗨️ From Visualization to Calculation: Applying the Cost of Carry Model ⚖️'
           file: notebooks/pricing.ipynb
+        - title: '🎓 Capstone: Mapping the Arbitrage Corridor on the December 2026 Contract'
+          file: Capstone_ Implied_ Repo_ Arbitrage_Bands.md
         - title: 📝 Chapter Summary
           file: Chapter_Summary.md
         - title: Imported Functions
