@@ -10,6 +10,7 @@ __pycache__/
 credentials.json
 client_secrets.json
 deploy.sh
+**/cache/
 !.gitignore
 fred/
 jupyter_one/
