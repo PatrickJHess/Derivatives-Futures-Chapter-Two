@@ -82,3 +82,4 @@ Ensure the custom functions defined earlier in this chapter are loaded into your
 :::{dropdown} 🔑 Here Is A Solution (Click to Expand)
 
 ```{include} Chapter_Two_Capstone_Solution.md
+:::
